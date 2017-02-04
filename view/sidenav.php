@@ -4,9 +4,9 @@
                         <div class="background">
                         <img src="./asset/img/background.jpg">
                     </div>
-                    <a href="#"><img class="circle" src="./asset/img/ajikamaludin.jpeg"></a>
-                    <a href="#"><span class="white-text name">Aji Kamaludin</span></a>
-                    <a href="#"><span class="white-text email">aji19kamaludin@gmail.com</span></a>
+                    <a href="./profile.php"><img class="circle" src="./asset/img/ajikamaludin.jpeg"></a>
+                    <a href="./profile.php"><span class="white-text name">Aji Kamaludin</span></a>
+                    <a href="./profile.php"><span class="white-text email">aji19kamaludin@gmail.com</span></a>
                     </div>
                 </li>
             <li><a class="waves-effect" href="./index.php">Dashboard</a></li>

@@ -1,5 +1,27 @@
 <?php
 include 'view/header.php';
+
+if(isset($_SESSION['user'])){
+    header('Location: index.php');
+}else{
+
+$pesan = "";
+if(isset($_POST['submit'])){
+    $nama = trim($_POST['nama']);
+    $asal_sekolah = trim($_POST['asal_sekolah']);
+    $url_blog = trim($_POST['url_blog']);
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
+    $reg = register_user($nama,$asal_sekolah,$url_blog,$email,$password);
+    if($reg == 'true'){
+        $pesan = "Registrasi Berhasil Silahkan Log In";
+    }elseif($reg == 'ada'){
+        $pesan = "Email Anda Telah Terdaftar";
+    }else{
+        $pesan = "Terjadi Kesalahan Saat Registrasi";
+    }
+}
+
 ?>
 
 <div class="container">
@@ -15,7 +37,7 @@ include 'view/header.php';
             <form class="col s12" method="POST">
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="nama" placeholder="Nama Lengkap" type="text" class="validate" name="nama">
+                        <input id="nama" placeholder="Nama Lengkap" type="text" class="validate" name="nama" required>
                         <label for="nama" data-error="wrong" data-success="right">Nama</label>
                         </div>
                 </div>
@@ -37,26 +59,33 @@ include 'view/header.php';
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="url_blog" placeholder="https://ajikamaludin.blogspot.co.id" type="text" class="validate" name="url_blog">
+                        <input id="url_blog" placeholder="https://ajikamaludin.blogspot.co.id" type="text" class="validate" name="url_blog" required>
                         <label for="url_blog" data-error="wrong" data-success="right">URL Blog</label>
                         </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="email" placeholder="example@example.com" type="email" class="validate" name="email">
+                        <input id="email" placeholder="example@example.com" type="email" class="validate" name="email" required>
                         <label for="email" data-error="wrong" data-success="right">Email</label>
                         </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="password" type="password" class="validate" name="password">
+                        <input id="password" type="password" class="validate" name="password" required>
                         <label for="password">Password</label>
                     </div>
                 </div>
                 <button class="btn waves-effect waves-light" type="submit" name="submit">Register</button>
             </form>
         </div>
-        <p> Sudah punya akun ? <a href="login.php">Log In</a></p>
+        <?php
+        if($pesan == ''){
+            echo $pesan;
+        }else{
+            echo $pesan;
+            echo "<p> Sudah punya akun ? <a href='login.php'>Log In</a></p>";
+        }
+        ?>
       </div>
 
       <div class="col m3">
@@ -68,6 +97,7 @@ include 'view/header.php';
 
 <?php
 include 'view/footer.php';
+}
 ?>
 <script type="text/javascript">
   $(document).ready(function() {
