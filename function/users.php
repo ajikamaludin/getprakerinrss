@@ -23,6 +23,7 @@ function cek_pengguna($email,$password){
 }
 
 function register_user($nama,$asal_sekolah,$url_blog,$email,$password){
+    global $link;
     $nama = cek_string($nama);
     $asal_sekolah = cek_string($asal_sekolah);
     $url_blog = cek_string(cek_urlblog($url_blog));
@@ -33,8 +34,9 @@ function register_user($nama,$asal_sekolah,$url_blog,$email,$password){
     if(cek_email($email)){
         $register = run($sql);
         if($register){
-            $id_user = mysqli_insert_id($register);
-            if(sync_blog($id_user,$url_blog)){
+            $id_user = mysqli_insert_id($link);
+            $sync_blog = sync_blog($id_user,$url_blog);
+            if($sync_blog){
                 return true;
             }else{
                 $result = drop_post($id_user);
@@ -43,7 +45,7 @@ function register_user($nama,$asal_sekolah,$url_blog,$email,$password){
                 }
             }
         }else{
-            return 'gagal';
+            return false;
         }
     }else{
         return 'ada';

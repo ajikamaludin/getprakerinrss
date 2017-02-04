@@ -1,6 +1,7 @@
 <?php
 include 'view/header.php';
 session_cek();
+$posts = tampil_post_by($_SESSION['user']);
 ?>
 
 
@@ -28,21 +29,17 @@ include 'view/sidenav.php';
         </thead>
 
         <tbody>
+        <?php
+        foreach($posts as $post){
+        ?> 
           <tr>
-            <td> Senin , 30 Januari 2017</td>
-            <td>Mengenal Linux Dasar</td>
-            <td> Aji Kamaludin </td>
+            <td> <?= $post['tgl_post']?> </td>
+            <td> <?= $post['judul_post']?> </td>
+            <td> <?= $post['nama']?> </td>
           </tr>
-          <tr>
-            <td> Selasa , 31 Januari 2017</td>
-            <td>Mengistall Linux Mint 18.1</td>
-            <td> Aji Kamaludin </td>
-          </tr>
-          <tr>
-            <td> Rabu , 1 Februari 2017</td>
-            <td>Mengistall LAMP Server di Linux Mint 18.1</td>
-            <td> Aji Kamaludin </td>
-          </tr>
+        <?php
+        }
+        ?>
         </tbody>
       </table>
       </div>

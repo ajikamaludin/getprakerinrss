@@ -5,6 +5,26 @@ function pilih_sekolah(){
     return $result;
 }
 
+function tampil_post_by($email){
+    $sql = "SELECT all_blog.judul_post,all_blog.tgl_post,pengguna.nama FROM `all_blog`,`pengguna` WHERE pengguna.email='$email' AND pengguna.id_pengguna=all_blog.id_pengguna LIMIT 7";
+    $result = result($sql);
+    return $result;
+}
+
+function tampil_nama($email){
+    $sql = " SELECT nama FROM pengguna WHERE email='$email' ";
+    $result = result($sql);
+    $result = mysqli_fetch_assoc($result);
+    $result = $result['nama'];
+    return $result;
+}
+
+function tampil_profile($email){
+    $sql = " SELECT * FROM pengguna WHERE email='$email' ";
+    $result = result($sql);
+    $result = mysqli_fetch_assoc($result);
+    return $result;
+}
 function result($query){
     global $link;
     $result = mysqli_query($link,$query);
@@ -32,32 +52,39 @@ function cek_urlblog($url){
 }
 
 function sync_blog($id_user,$url_blog){
+    global $link;
     $url = $url_blog.'/feeds/posts/default?max-results=300';
     $xml = simplexml_load_file($url);
-    $data = $xml->entry;
-    foreach( $data as $blog ){
-	    $tgl_post = substr($blog->published,0,10);
-	    $judul_post = $blog->title;
-	    $isi_post = $blog->content;
-	    $isi_post = mysqli_real_escape_string($koneksi,$isi_post);
-        //cek ketersediaan
-	    if(cek_adapost($judul,$tgl_post,$id_user)){
-	    	//$sql = "INSERT INTO `post` (`judul_post`, `konten_post`, `tgl_post`) VALUES ('$judul', '$kontent2', '$pub')";
-	    	$exec = mysqli_query($koneksi,$sql);
-	    	if($exec){
-	    		echo "sukses <br>";
-	    	}else{
-	    		echo "gagal <br>";
-	    	}
-	    }else{
-	    	echo "post sudah ada <br>";
-    	}
+    if($xml){
+        $data = $xml->entry;
+        foreach( $data as $blog ){
+            $tgl_post = substr($blog->published,0,10);
+            $judul_post = $blog->title;
+            $isi_post = $blog->content;
+            $isi_post = mysqli_real_escape_string($link,$isi_post);
+            if(cek_adapost($judul_post,$tgl_post,$id_user)){
+                $sql ="INSERT INTO `all_blog` (`judul_post`, `tgl_post`, `konten_post`, `id_pengguna`) VALUES ('$judul_post', '$tgl_post', '$isi_post', '$id_user')";
+                $exec = mysqli_query($link,$sql);
+                $sync = 'true';
+            }else{
+                $sync = 'false';
+            }
+        }
+        //bikin logika untuk hasil akhir foreach
+        if($sync){
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        return false;
     }
 }
 
-function cek_adapos($judul,$tgl_post,$id_user){
+function cek_adapost($judul,$tgl_post,$id_user){
     $sql = "SELECT judul_post,tgl_post,id_pengguna FROM `all_blog` WHERE judul_post='$judul' AND tgl_post='$tgl_post' AND id_pengguna='$id_user' ";
-    $result = mysqli_num_rows(result($sql));
+    $result = result($sql);
+    $result = mysqli_num_rows($result);
     if($result != 0){
         return false;
     }else{
