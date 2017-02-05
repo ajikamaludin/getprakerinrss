@@ -25,13 +25,13 @@ function cek_pengguna($email,$password){
 function register_user($nama,$asal_sekolah,$jurusan,$url_blog,$email,$password){
     global $link;
     $nama = cek_string($nama);
-    $asal_sekolah = cek_string($asal_sekolah);
+    $id_sekolah = cek_string($asal_sekolah);
     $jurusan = cek_string($jurusan);
     $url_blog = cek_string(cek_urlblog($url_blog));
     $email = cek_string($email);
     $password = cek_string($password);
     $password = md5($password);
-    $sql = "INSERT INTO `pengguna` (`nama`,`email`,`password`,`asl_sklh`,`jurusan`,`url_blog`,`status`) VALUES ('$nama', '$email', '$password', '$asal_sekolah','$jurusan','$url_blog','aktiv')";
+    $sql = "INSERT INTO `pengguna` (`nama`,`email`,`password`,`id_sekolah`,`jurusan`,`url_blog`,`status`) VALUES ('$nama', '$email', '$password', '$id_sekolah','$jurusan','$url_blog','aktiv')";
     if(cek_email($email)){
         $register = run($sql);
         if($register){
@@ -42,7 +42,7 @@ function register_user($nama,$asal_sekolah,$jurusan,$url_blog,$email,$password){
             }else{
                 $result = drop_post($id_user);
                 if($result){
-                    return 'fsync_blog';
+                    return 'gagal';
                 }
             }
         }else{

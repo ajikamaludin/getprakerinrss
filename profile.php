@@ -3,8 +3,6 @@ include 'view/header.php';
 session_cek();
 $profiles = tampil_profile($_SESSION['user']);
 ?>
-
-
     <div class="row">
 
     <!--sidenav-->
@@ -48,13 +46,13 @@ include 'view/sidenav.php';
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                <input disabled value="<?= $profiles['asl_sklh'] ?>" name="asal_sekolah" id="disabled" type="text" class="validate">
+                <input disabled value="<?= $profiles['nama_sekolah'] ?>" name="asal_sekolah" id="disabled" type="text" class="validate">
                 <label for="disabled">Sekolah</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                <input disabled value="<?= $profiles['no_hp'] ?>" name="no_hp" id="disabled" type="number" class="validate">
+                <input disabled value="<?= $profiles['no_hp'] ?>" name="no_hp" id="disabled" type="text" class="validate">
                 <label for="disabled">No.Telp</label>
                 </div>
             </div>
@@ -84,7 +82,7 @@ include 'view/sidenav.php';
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                <input disabled value="<?= $profiles['masa_prakerin'] ?>" name="masa_prakerin" id="disabled" type="text" class="validate">
+                <input disabled value="<?= $profiles['masa_prakerin'] ?> Bulan" name="masa_prakerin" id="disabled" type="text" class="validate">
                 <label for="disabled">Masa Prakerin</label>
                 </div>
             </div>

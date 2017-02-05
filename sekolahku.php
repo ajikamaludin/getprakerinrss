@@ -56,7 +56,7 @@ include 'view/sidenav.php';
             
         </form>
               <div class="fixed-action-btn">
-                    <a class="btn-floating btn-large red">
+                    <a href="./edit_sekolahku.php" class="btn-floating btn-large red">
                         <i class="large material-icons">mode_edit</i>
                     </a>
             </div>

@@ -18,7 +18,7 @@ if(isset($_POST['submit'])){
         $reg = register_user($nama,$asal_sekolah,$jurusan,$url_blog,$email,$password);
         if($reg == 'true'){
             $pesan = "Registrasi Berhasil Silahkan Log In";
-        }elseif($reg == 'fsync_blog'){
+        }elseif($reg == 'gagal'){
             $pesan = "Registrasi Berhasil, Namun Ada Masalah Dengan Blog/URL Anda Silahkan Log In Untuk Melalukan Sync Blog";
         }elseif($reg == 'ada'){
             $pesan = "Email Anda Telah Terdaftar";
@@ -57,11 +57,11 @@ if(isset($_POST['submit'])){
                             $data = pilih_sekolah();
                            while( $sekolah = mysqli_fetch_assoc($data) ):
                             ?>
-                            <option name="asal_sekolah" value="<?= $sekolah['nama_sekolah'];?>"> <?= $sekolah['nama_sekolah'];?> </option>
+                            <option name="asal_sekolah" value="<?= $sekolah['id_sekolah'];?>"> <?= $sekolah['nama_sekolah'];?> </option>
                             <?php
                             endwhile;
                             ?>
-                            <option name="asal_sekolah" value=""> Sekolah Belum Terdata </option>
+                            <option name="asal_sekolah" value="0"> Sekolah Belum Terdata </option>
                         </select>
                     <label>Sekolah</label>
                     </div>

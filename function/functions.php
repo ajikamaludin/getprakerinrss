@@ -20,7 +20,7 @@ function tampil_nama($email){
 }
 
 function tampil_profile($email){
-    $sql = " SELECT * FROM pengguna WHERE email='$email' ";
+    $sql = " SELECT pengguna.id_pengguna,pengguna.nama,pengguna.email,pengguna.password,pengguna.id_sekolah,pengguna.nisn,pengguna.alamat,pengguna.kota_lahir,pengguna.tgl_lahir,pengguna.masa_prakerin,pengguna.tgl_masuk,pengguna.tgl_keluar,pengguna.jurusan,pengguna.url_blog,pengguna.link_fb,pengguna.no_hp,pengguna.status,pengguna.foto_profile,sekolah.nama_sekolah FROM pengguna JOIN sekolah ON pengguna.id_sekolah=sekolah.id_sekolah WHERE email='$email' ";
     $result = result($sql);
     $result = mysqli_fetch_assoc($result);
     return $result;
@@ -33,10 +33,11 @@ function tampil_sekolah($email){
     return $result;
 }
 
-function input_data_profile($nisn,$nama,$email,$password,$asal_sekolah,$alamat,$tempat_lahir,$tgl_lahir,$masa_prakerin,$tgl_masuk,$tgl_keluar,$jurusan,$url_blog,$link_fb,$no_hp,$valid){
-    $password = md5($password);
+function input_data_profile($nisn,$nama,$email,$asal_sekolah,$alamat,$tempat_lahir,$tgl_lahir,$masa_prakerin,$tgl_masuk,$tgl_keluar,$jurusan,$url_blog,$link_fb,$no_hp,$valid){
     $url_blog = cek_urlblog($url_blog);
-    $sql_pengguna = "UPDATE `pengguna` SET `nama` = '$nama', `email` = '$email', `password` = '$password', `asl_sklh` = '$asal_sekolah', `nisn` = '$nisn', `alamat` = '$alamat', `kota_lahir` = '$tempat_lahir', `tgl_lahir` = '$tgl_lahir', `masa_prakerin` = '$masa_prakerin', `tgl_masuk` = '$tgl_masuk', `tgl_keluar` = '$tgl_keluar', `jurusan` = '$jurusan', `url_blog` = '$url_blog', `link_fb` = '$link_fb', `no_hp` = '$no_hp' WHERE `pengguna`.`id_pengguna` = '$valid' ";
+    $no_hp = cek_string(cek_nohp($no_hp));
+    $sql_pengguna = "UPDATE `pengguna` SET `nama` = '$nama', `email` = '$email',`asl_sklh` = '$asal_sekolah', `nisn` = '$nisn', `alamat` = '$alamat', `kota_lahir` = '$tempat_lahir', `tgl_lahir` = '$tgl_lahir', `masa_prakerin` = '$masa_prakerin', `tgl_masuk` = '$tgl_masuk', `tgl_keluar` = '$tgl_keluar', `jurusan` = '$jurusan', `url_blog` = '$url_blog', `link_fb` = '$link_fb', `no_hp` = '$no_hp' WHERE `pengguna`.`id_pengguna` = '$valid' ";
+    //die(print_r($sql_pengguna));
     if(run($sql_pengguna)){
         if(cek_sekolah($asal_sekolah)){
             $tahun_ini = date('Y');
@@ -88,6 +89,16 @@ function cek_urlblog($url){
     }
 }
 
+function cek_nohp($no_hp){
+    $cek = substr($no_hp,0,3);
+    if($cek == '+62'){
+        return $no_hp;
+    }else{
+        $no_hp_new = '+62'.$no_hp;
+        return $no_hp_new;
+    }
+}
+
 function sync_blog($id_user,$url_blog){
     global $link;
     $url = $url_blog.'/feeds/posts/default?max-results=300';
@@ -102,9 +113,9 @@ function sync_blog($id_user,$url_blog){
             if(cek_adapost($judul_post,$tgl_post,$id_user)){
                 $sql ="INSERT INTO `all_blog` (`judul_post`, `tgl_post`, `konten_post`, `id_pengguna`) VALUES ('$judul_post', '$tgl_post', '$isi_post', '$id_user')";
                 $exec = mysqli_query($link,$sql);
-                $sync = 'true';
+                $sync = true;
             }else{
-                $sync = 'false';
+                $sync = false;
             }
         }
         //bikin logika untuk hasil akhir foreach
@@ -126,6 +137,18 @@ function cek_adapost($judul,$tgl_post,$id_user){
         return false;
     }else{
         return true;
+    }
+}
+
+function cek_password($email,$password){
+    $password = md5($password);
+    $sql = "SELECT email,password FROM pengguna WHERE email='$email' AND password='$password' ";
+    $result = result($sql);
+    $result = mysqli_num_rows($result);
+    if($result != 0){
+        return true;
+    }else{
+        return false;
     }
 }
 

@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteRule ^auth login.php [L]
+RewriteRule ^dashboard index.php [L]
+RewriteRule ^my/([a-zA-Z]+) profile.php [L]
+RewriteRule ^profile/edit/([0-9]+) edit_profile.php?id=$1 [L]
