@@ -38,15 +38,12 @@ function register_user($nama,$asal_sekolah,$jurusan,$url_blog,$email,$password){
             $id_user = mysqli_insert_id($link);
             $sync_blog = sync_blog($id_user,$url_blog);
             if($sync_blog){
-                return true;
+                return 'true';
             }else{
-                $result = drop_post($id_user);
-                if($result){
-                    return 'gagal';
-                }
+                return 'gagal';
             }
         }else{
-            return false;
+            return 'false';
         }
     }else{
         return 'ada';

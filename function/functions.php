@@ -1,6 +1,6 @@
 <?php
 function pilih_sekolah(){
-    $sql = "SELECT nama_sekolah FROM `sekolah`";
+    $sql = "SELECT id_sekolah,nama_sekolah FROM `sekolah`";
     $result = result($sql);
     return $result;
 }
@@ -34,17 +34,29 @@ function tampil_sekolah($email){
 }
 
 function input_data_profile($nisn,$nama,$email,$asal_sekolah,$alamat,$tempat_lahir,$tgl_lahir,$masa_prakerin,$tgl_masuk,$tgl_keluar,$jurusan,$url_blog,$link_fb,$no_hp,$valid){
+    $nisn = cek_string($nisn);
+    $nama = cek_string($nama);
+    $email = cek_string($email);
+    $asal_sekolah = cek_string($asal_sekolah);
     $url_blog = cek_urlblog($url_blog);
     $no_hp = cek_string(cek_nohp($no_hp));
-    $sql_pengguna = "UPDATE `pengguna` SET `nama` = '$nama', `email` = '$email',`asl_sklh` = '$asal_sekolah', `nisn` = '$nisn', `alamat` = '$alamat', `kota_lahir` = '$tempat_lahir', `tgl_lahir` = '$tgl_lahir', `masa_prakerin` = '$masa_prakerin', `tgl_masuk` = '$tgl_masuk', `tgl_keluar` = '$tgl_keluar', `jurusan` = '$jurusan', `url_blog` = '$url_blog', `link_fb` = '$link_fb', `no_hp` = '$no_hp' WHERE `pengguna`.`id_pengguna` = '$valid' ";
-    //die(print_r($sql_pengguna));
+    $alamat = cek_string($alamat);
+    $tempat_lahir = cek_string($tempat_lahir);
+    $tgl_lahir = cek_string($tgl_lahir);
+    $masa_prakerin = cek_string($masa_prakerin);
+    $tgl_masuk = cek_string($tgl_masuk);
+    $tgl_keluar = cek_string($tgl_keluar);
+    $jurusan = cek_string($jurusan);
+    $link_fb = cek_string($link_fb);
+    $sql_pengguna = "UPDATE `pengguna` SET `nama` = '$nama', `email` = '$email', `nisn` = '$nisn', `alamat` = '$alamat', `kota_lahir` = '$tempat_lahir', `tgl_lahir` = '$tgl_lahir', `masa_prakerin` = '$masa_prakerin', `tgl_masuk` = '$tgl_masuk', `tgl_keluar` = '$tgl_keluar', `jurusan` = '$jurusan', `url_blog` = '$url_blog', `link_fb` = '$link_fb', `no_hp` = '$no_hp' WHERE `pengguna`.`id_pengguna` = '$valid' ";
     if(run($sql_pengguna)){
         if(cek_sekolah($asal_sekolah)){
             $tahun_ini = date('Y');
             $sql_sekolah = "INSERT INTO `sekolah` (`nama_sekolah`,`thn_prakerin`) VALUES ('$asal_sekolah','$tahun_ini')";
             run($sql_sekolah);
+            return true;
         }else{
-        return true;
+            return true;
         }
     }else{
         return false;
@@ -118,12 +130,9 @@ function sync_blog($id_user,$url_blog){
                 $sync = false;
             }
         }
-        //bikin logika untuk hasil akhir foreach
-        if($sync){
-            return true;
-        }else{
-            return false;
-        }
+        return true;
+    }elseif($xml == false){
+        return false;
     }else{
         return false;
     }
@@ -135,6 +144,8 @@ function cek_adapost($judul,$tgl_post,$id_user){
     $result = mysqli_num_rows($result);
     if($result != 0){
         return false;
+    }elseif(!$result){
+        return true;
     }else{
         return true;
     }

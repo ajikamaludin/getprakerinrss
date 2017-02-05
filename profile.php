@@ -108,6 +108,12 @@ include 'view/sidenav.php';
                         <i class="large material-icons">mode_edit</i>
                     </a>
             </div>
+        <a href="ganti_password.php" class="btn waves-effect waves-light" type="submit" name="action">Ganti Password
+            <i class="material-icons right">send</i>
+        </a>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Ganti Foto Profile
+            <i class="material-icons right">send</i>
+        </button>
         </div>
       </div>
     </div>

@@ -25,6 +25,13 @@ include 'view/sidenav.php';
             </div>
             <div class="row">
                 <div class="input-field col s12">
+                <input disabled value="<?= $sekolah['thn_prakerin'] ?>" name="tahun_prakerin" id="disabled" type="text" class="validate">
+                <label for="disabled">Tahun Prakerin</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
                 <input disabled value="<?= $sekolah['nama_pembimbing'] ?>" name="nama_pembimbing" id="disabled" type="text" class="validate">
                 <label for="disabled">Nama Pembimbing</label>
                 </div>
@@ -46,14 +53,7 @@ include 'view/sidenav.php';
                 <input disabled value="<?= $sekolah['kurikulum'] ?>" name="kurikulum" id="disabled" type="text" class="validate">
                 <label for="disabled">Kurikulum</label>
                 </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                <input disabled value="<?= $sekolah['thn_prakerin'] ?>" name="tahun_prakerin" id="disabled" type="text" class="validate">
-                <label for="disabled">Tahun Prakerin</label>
-                </div>
-            </div>
-            
+            </div>            
         </form>
               <div class="fixed-action-btn">
                     <a href="./edit_sekolahku.php" class="btn-floating btn-large red">

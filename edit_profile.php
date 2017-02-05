@@ -24,7 +24,7 @@ if(isset($_POST['submit'])){
         if($result){
             header('Location: profile.php');
         }else{
-            die();
+            $pesan = "perubahan mengalami kesalahan";
         }
     }else{
         $pesan = "password salah";

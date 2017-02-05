@@ -52,12 +52,12 @@ if(isset($_POST['submit'])){
                 <div class="row">
                     <div class="input-field col s12">
                         <select name="asal_sekolah">
-                            <option value="" disabled selected>Pilih Sekolah Asal</option>
+                            <option name="asal_sekolah" value="" disabled selected>Pilih Sekolah Asal</option>
                             <?php
                             $data = pilih_sekolah();
-                           while( $sekolah = mysqli_fetch_assoc($data) ):
+                            while( $sekolah = mysqli_fetch_assoc($data)):
                             ?>
-                            <option name="asal_sekolah" value="<?= $sekolah['id_sekolah'];?>"> <?= $sekolah['nama_sekolah'];?> </option>
+                            <option name="asal_sekolah" value="<?= $sekolah['id_sekolah']; ?>"> <?= $sekolah['nama_sekolah'];?> </option>
                             <?php
                             endwhile;
                             ?>
