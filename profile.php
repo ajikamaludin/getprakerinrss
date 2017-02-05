@@ -111,9 +111,9 @@ include 'view/sidenav.php';
         <a href="ganti_password.php" class="btn waves-effect waves-light" type="submit" name="action">Ganti Password
             <i class="material-icons right">send</i>
         </a>
-        <button class="btn waves-effect waves-light" type="submit" name="action">Ganti Foto Profile
+        <a href="foto_profile.php" class="btn waves-effect waves-light" type="submit" name="action">Ganti Foto Profile
             <i class="material-icons right">send</i>
-        </button>
+        </a>
         </div>
       </div>
     </div>

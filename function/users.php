@@ -61,4 +61,29 @@ function cek_email($email){
     }
 }
 
+function cek_password($email,$password){
+    $password = md5($password);
+    $sql = "SELECT email,password FROM pengguna WHERE email='$email' AND password='$password' ";
+    $result = result($sql);
+    $result = mysqli_num_rows($result);
+    if($result != 0){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function ubah_password($email,$password){
+    $password = md5($password);
+    $email = cek_string($email);
+    $sql = "UPDATE `pengguna` SET `password` = '$password' WHERE `pengguna`.`email` = '$email' ";
+    $result = run($sql);
+    if($result){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
 ?>

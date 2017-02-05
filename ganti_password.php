@@ -9,9 +9,10 @@ if(isset($_POST['submit'])){
   $password_baru = $_POST['password_baru'];
   $password_baru_re = $_POST['password_baru_re'];
   if( $password_baru == $password_baru_re ){
-    if(cek_password($_SESSION['user'],$_POST['password'])){
+    if(cek_password($_SESSION['user'],$password)){
       $result = ubah_password($_SESSION['user'],$_POST['password']);
       if($result){
+        $pesan ='berhasil';
         header('Location: profile.php');
       }
     }else{
@@ -21,7 +22,6 @@ if(isset($_POST['submit'])){
     $pesan = 'password tidak sama';
   }
 }
-
 ?>
 
 
@@ -35,10 +35,10 @@ include 'view/sidenav.php';
       <div class="col s12 m8 l9"> 
     <h4>Password</h4>
         <div class="row">
-            <form class="col s12">
+            <form class="col s12" method="post">
             <div class="row">
                 <div class="input-field col s12">
-                <input  value="" name="$password" type="password" class="validate">
+                <input  value="" name="password" type="password" class="validate">
                 <label>Password Lama</label>
                 </div>
                 <div class="row">
@@ -51,8 +51,10 @@ include 'view/sidenav.php';
                 <input  value="" name="password_baru_re" type="password" class="validate">
                 <label>Ulang Password Baru</label>
                 </div>
+                  <input class="btn waves-effect waves-light" type="submit" name="submit" value="Ganti"></input>
             </div>
             </form>
+            <?= $pesan ?>
         </div>
       </div>
 

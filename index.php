@@ -33,7 +33,7 @@ include 'view/sidenav.php';
         foreach($posts as $post){
         ?> 
           <tr>
-            <td> <?= $post['tgl_post']?> </td>
+            <td> <?= format_tgl($post['tgl_post'])?> </td>
             <td> <?= $post['judul_post']?> </td>
             <td> <?= $post['nama']?> </td>
           </tr>

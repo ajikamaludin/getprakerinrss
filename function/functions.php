@@ -151,18 +151,6 @@ function cek_adapost($judul,$tgl_post,$id_user){
     }
 }
 
-function cek_password($email,$password){
-    $password = md5($password);
-    $sql = "SELECT email,password FROM pengguna WHERE email='$email' AND password='$password' ";
-    $result = result($sql);
-    $result = mysqli_num_rows($result);
-    if($result != 0){
-        return true;
-    }else{
-        return false;
-    }
-}
-
 function drop_post($id_user){
     $sql = "DELETE * FROM `all_blog` WHERE id_pengguna='$id_user'";
     $result = run($sql);
@@ -181,6 +169,59 @@ function session_cek(){
     }
 }
 
+function format_tgl($tgl){
+    $tgl = date_create($tgl);
+    $tgl = date_format($tgl,'m/d/Y');
+    $tgl = $tgl;
+    $tgl = new DateTime("$tgl");
+    $tgl =  date_format($tgl, 'l, d-m-Y');
+    return $tgl;
+}
 
+function upload_foto($file,$email){
+    //die(var_dump($file));
+    $nama_foto = $file['name'];
+    $ukuran_foto = $file['size'];
+    $format_foto = $file['type'];
+    $tmp_foto = $file['tmp_name'];
+    $error_foto = $file['error'];
+    $acak = time();
+    $simpan = "asset/img/profile".$nama_foto;
+
+    if( $error_foto == 0 ){
+        if($ukuran_foto < 1024000){
+            if($format_foto == 'image/jpeg' || $format_foto == 'image/jpg' || $format_foto == 'image/png' ){
+                if(file_exists($simpan)){
+                    $nama_foto = cek_foto($nama_foto,$format_foto);
+                    if(simpan_foto($nama_foto,$email)){
+                        move_uploaded_file($tmp_foto, $simpan);
+                        return true; 
+                    }
+                }
+            }else{
+                return false;//format salah
+            }
+
+        }else{
+            return false;//ukuran salah
+        }
+    }else{
+        return false;//ada error
+    }
+
+}
+
+function cek_foto($nama,$ekstensi){
+    $ekstensi = str_replace('image/','.', $ekstensi);
+    $nama_foto = str_replace($ekstensi, "", $nama);
+    $nama_foto = $nama_foto.'_'.$acak.'.'$ekstensi;
+    return $nama_foto;
+}
+
+function simpan_foto($nama,$email){
+    $sql = "";
+    $result = run($sql);
+    return $result;
+}
 
 ?>
