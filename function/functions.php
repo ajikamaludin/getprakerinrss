@@ -25,6 +25,43 @@ function tampil_profile($email){
     $result = mysqli_fetch_assoc($result);
     return $result;
 }
+
+function tampil_sekolah($email){
+    $sql = " SELECT * FROM sekolah JOIN pengguna ON pengguna.id_sekolah=sekolah.id_sekolah WHERE pengguna.email='$email' ";
+    $result = result($sql);
+    $result = mysqli_fetch_assoc($result);
+    return $result;
+}
+
+function input_data_profile($nisn,$nama,$email,$password,$asal_sekolah,$alamat,$tempat_lahir,$tgl_lahir,$masa_prakerin,$tgl_masuk,$tgl_keluar,$jurusan,$url_blog,$link_fb,$no_hp,$valid){
+    $password = md5($password);
+    $url_blog = cek_urlblog($url_blog);
+    $sql_pengguna = "UPDATE `pengguna` SET `nama` = '$nama', `email` = '$email', `password` = '$password', `asl_sklh` = '$asal_sekolah', `nisn` = '$nisn', `alamat` = '$alamat', `kota_lahir` = '$tempat_lahir', `tgl_lahir` = '$tgl_lahir', `masa_prakerin` = '$masa_prakerin', `tgl_masuk` = '$tgl_masuk', `tgl_keluar` = '$tgl_keluar', `jurusan` = '$jurusan', `url_blog` = '$url_blog', `link_fb` = '$link_fb', `no_hp` = '$no_hp' WHERE `pengguna`.`id_pengguna` = '$valid' ";
+    if(run($sql_pengguna)){
+        if(cek_sekolah($asal_sekolah)){
+            $tahun_ini = date('Y');
+            $sql_sekolah = "INSERT INTO `sekolah` (`nama_sekolah`,`thn_prakerin`) VALUES ('$asal_sekolah','$tahun_ini')";
+            run($sql_sekolah);
+        }else{
+        return true;
+        }
+    }else{
+        return false;
+    }
+    
+}
+
+function cek_sekolah($sekolah){
+    $sql = "SELECT nama_sekolah FROM sekolah WHERE nama_sekolah='$sekolah' ";
+    $result = result($sql);
+    $result = mysqli_num_rows($result);
+    if($result != 0){
+        return false;
+    }else{
+        return true;
+    }
+}
+
 function result($query){
     global $link;
     $result = mysqli_query($link,$query);

@@ -106,14 +106,12 @@ include 'view/sidenav.php';
             </div>
             </form>
               <div class="fixed-action-btn">
-                    <a href="view/edit/profile.php"class="btn-floating btn-large red">
+                    <a href="./edit_profile.php" class="btn-floating btn-large red">
                         <i class="large material-icons">mode_edit</i>
                     </a>
             </div>
         </div>
       </div>
-
-
     </div>
 <?php
 include 'view/footer.php';
