@@ -1,36 +1,19 @@
 <?php
-function pilih_sekolah(){
-    $sql = "SELECT id_sekolah,nama_sekolah,logo_sekolah FROM `sekolah`";
-    $result = result($sql);
+
+function result($query){
+    global $link;
+    $result = mysqli_query($link,$query);
     return $result;
 }
 
-function tampil_post_by($email){
-    $sql = "SELECT all_blog.judul_post,all_blog.tgl_post,pengguna.nama FROM `all_blog`,`pengguna` WHERE pengguna.email='$email' AND pengguna.id_pengguna=all_blog.id_pengguna LIMIT 7";
-    $result = result($sql);
-    return $result;
-}
-
-function tampil_nama($email){
-    $sql = " SELECT nama FROM pengguna WHERE email='$email' ";
-    $result = result($sql);
-    $result = mysqli_fetch_assoc($result);
-    $result = $result['nama'];
-    return $result;
-}
-
-function tampil_profile($email){
-    $sql = " SELECT pengguna.id_pengguna,pengguna.nama,pengguna.email,pengguna.password,pengguna.id_sekolah,pengguna.nisn,pengguna.alamat,pengguna.kota_lahir,pengguna.tgl_lahir,pengguna.masa_prakerin,pengguna.tgl_masuk,pengguna.tgl_keluar,pengguna.jurusan,pengguna.url_blog,pengguna.link_fb,pengguna.no_hp,pengguna.status,pengguna.foto_profile,sekolah.nama_sekolah FROM pengguna JOIN sekolah ON pengguna.id_sekolah=sekolah.id_sekolah WHERE email='$email' ";
-    $result = result($sql);
-    $result = mysqli_fetch_assoc($result);
-    return $result;
-}
-
-function tampil_sekolah($email){
-    $sql = " SELECT * FROM sekolah JOIN pengguna ON pengguna.id_sekolah=sekolah.id_sekolah WHERE pengguna.email='$email' ";
-    $result = result($sql);
-    $result = mysqli_fetch_assoc($result);
-    return $result;
+function run($query){
+    global $link;
+    $result = mysqli_query($link,$query);
+    if($result){
+        return true;
+    }else{
+        return false;
+    }
 }
 
 function input_data_profile($nisn,$nama,$email,$asal_sekolah,$alamat,$tempat_lahir,$tgl_lahir,$masa_prakerin,$tgl_masuk,$tgl_keluar,$jurusan,$url_blog,$link_fb,$no_hp,$valid){
@@ -64,109 +47,17 @@ function input_data_profile($nisn,$nama,$email,$asal_sekolah,$alamat,$tempat_lah
     
 }
 
-function cek_sekolah($sekolah){
-    $sql = "SELECT nama_sekolah FROM sekolah WHERE nama_sekolah='$sekolah' ";
-    $result = result($sql);
-    $result = mysqli_num_rows($result);
-    if($result != 0){
-        return false;
-    }else{
-        return true;
-    }
-}
-
-function result($query){
-    global $link;
-    $result = mysqli_query($link,$query);
-    return $result;
-}
-
-function run($query){
-    global $link;
-    $result = mysqli_query($link,$query);
-    if($result){
-        return true;
-    }else{
-        return false;
-    }
-}
-
-function cek_urlblog($url){
-    $cek1 = substr($url,0,3);
-    if($cek1 == 'htt'){
-        return $url;
-    }else{
-        $url_new = 'http://'.$url;
-        return $url_new;
-    }
-}
-
-function cek_nohp($no_hp){
-    $cek = substr($no_hp,0,3);
-    if($cek == '+62'){
-        return $no_hp;
-    }else{
-        $no_hp_new = '+62'.$no_hp;
-        return $no_hp_new;
-    }
-}
-
-function sync_blog($id_user,$url_blog){
-    global $link;
-    $url = $url_blog.'/feeds/posts/default?max-results=300';
-    $xml = simplexml_load_file($url);
-    if($xml){
-        $data = $xml->entry;
-        foreach( $data as $blog ){
-            $tgl_post = substr($blog->published,0,10);
-            $judul_post = $blog->title;
-            $isi_post = $blog->content;
-            $isi_post = mysqli_real_escape_string($link,$isi_post);
-            if(cek_adapost($judul_post,$tgl_post,$id_user)){
-                $sql ="INSERT INTO `all_blog` (`judul_post`, `tgl_post`, `konten_post`, `id_pengguna`) VALUES ('$judul_post', '$tgl_post', '$isi_post', '$id_user')";
-                $exec = mysqli_query($link,$sql);
-                $sync = true;
-            }else{
-                $sync = false;
-            }
-        }
-        return true;
-    }elseif($xml == false){
-        return false;
-    }else{
-        return false;
-    }
-}
-
-function cek_adapost($judul,$tgl_post,$id_user){
-    $sql = "SELECT judul_post,tgl_post,id_pengguna FROM `all_blog` WHERE judul_post='$judul' AND tgl_post='$tgl_post' AND id_pengguna='$id_user' ";
-    $result = result($sql);
-    $result = mysqli_num_rows($result);
-    if($result != 0){
-        return false;
-    }elseif(!$result){
-        return true;
-    }else{
-        return true;
-    }
-}
-
 function drop_post($id_user){
-    $sql = "DELETE * FROM `all_blog` WHERE id_pengguna='$id_user'";
+    $sql = "DELETE FROM `all_blog` WHERE id_pengguna='$id_user'";
     $result = run($sql);
     return $result;
 }
 
-function cek_string($data){
-    global $link;
-    $data = mysqli_real_escape_string($link,$data);
-    return $data;
-}
-
-function session_cek(){
-    if(!$_SESSION['user']){
-    header('Location: login.php');
-    }
+function drop_post_by($email){
+    $id_user = getid_pengguna($email);
+    $sql = "DELETE FROM `all_blog` WHERE id_pengguna='$id_user'";
+    $result = run($sql);
+    return $result;
 }
 
 function format_tgl($tgl){
@@ -176,76 +67,6 @@ function format_tgl($tgl){
     $tgl = new DateTime("$tgl");
     $tgl =  date_format($tgl, 'l, d-m-Y');
     return $tgl;
-}
-
-function upload_foto($file,$email,$dir){
-    //die(var_dump($file));
-    $nama_foto = $file['name'];
-    $ukuran_foto = $file['size'];
-    $format_foto = $file['type'];
-    $tmp_foto = $file['tmp_name'];
-    $error_foto = $file['error'];
-    $simpan = "asset/img/".$dir.'/'.$nama_foto;
-
-    if( $error_foto == 0 ){
-        if($ukuran_foto < 1024000){
-            if($format_foto == 'image/jpeg' || $format_foto == 'image/jpg' || $format_foto == 'image/png' ){
-                if(file_exists($simpan)){
-                    $nama_foto = cek_foto($nama_foto,$format_foto,$email);
-                    $simpan = "asset/img/".$dir.'/'.$nama_foto;
-                    if($dir == 'profile'){
-                        if(simpan_foto_profile($nama_foto,$email)){
-                            move_uploaded_file($tmp_foto, $simpan);
-                            return true; 
-                        }else{
-                            die();
-                        }
-                    }elseif($dir == 'sekolah'){
-                        if(simpan_foto_sekolah($nama_foto,$email)){
-                            move_uploaded_file($tmp_foto, $simpan);
-                            return true; 
-                        }else{
-                            die();
-                        }
-                    }else{
-                        die();
-                    }
-                }else{
-                    $nama_foto = cek_foto($nama_foto,$format_foto,$email);
-                    $simpan = "asset/img/".$dir.'/'.$nama_foto;
-                    if($dir == 'profile'){
-                        if(simpan_foto_profile($nama_foto,$email)){
-                            move_uploaded_file($tmp_foto, $simpan);
-                            return true; 
-                        }
-                    }elseif($dir == 'sekolah'){
-                        if(simpan_foto_sekolah($nama_foto,$email)){
-                            move_uploaded_file($tmp_foto, $simpan);
-                            return true; 
-                        }
-                    }else{
-                        die();
-                    }
-                }
-            }else{
-                return false;//format salah
-            }
-
-        }else{
-            return false;//ukuran salah
-        }
-    }else{
-        return false;//ada error
-    }
-
-}
-
-function cek_foto($nama,$ekstensi,$email){
-    $acak = time();
-    $ekstensi = str_replace('image/','.', $ekstensi);
-    $nama_foto = str_replace($ekstensi, "", $nama);
-    $nama_foto = $nama_foto.'_'.$acak.'_'.$email.$ekstensi;
-    return $nama_foto;
 }
 
 function simpan_foto_profile($nama,$email){
@@ -263,37 +84,48 @@ function simpan_foto_sekolah($nama,$email){
     return $result;
 }
 
-function tampil_foto(){
-    $profiles = tampil_profile($_SESSION['user']);
-    $foto = $profiles['foto_profile'];
-    if ($foto == NULL) {
-        return 'empty-profile.png';
+function update_data_sekolah($email,$asal_sekolah,$tahun_ajaran,$kurikulum,$tahun_prakerin){
+    $email = cek_string($email);
+    $id_sekolah = cek_string($asal_sekolah);
+    $nama_pembimbing = cek_string($nama_pembimbing);
+    $no_pembimbing = cek_string($no_pembimbing);
+    $tahun_ajaran  = cek_string($tahun_ajaran);
+    $kurikulum = cek_string($kurikulum);
+    $tahun_prakerin = cek_string($tahun_prakerin);
+    if(ganti_sekolah($email,$id_sekolah)){
+        $sql = "UPDATE `sekolah` SET `tahun_ajaran` = '$tahun_ajaran', `kurikulum` = '$kurikulum', `thn_prakerin` = '$tahun_prakerin' WHERE `sekolah`.`id_sekolah` = '$id_sekolah'";
+        $result = run($sql);
+        return $result;
     }else{
-        return $foto;
+        return false;
     }
 }
 
-function tampil_logo(){
-    $sekolah = tampil_sekolah($_SESSION['user']);
-    $foto = $sekolah['logo_sekolah'];
-    //die(print_r($foto));
-    if ($foto == NULL) {
-        return 'NULL';
+function update_data_pembimbing($email,$nama_pembimbing,$no_pembimbing){
+    $id_sekolah = getid_sekolah(cek_string($email));
+    $nama_pembimbing = cek_string($nama_pembimbing);
+    $no_pembimbing = cek_string($no_pembimbing);
+    $sql = "UPDATE `sekolah` SET `nama_pembimbing`='$nama_pembimbing',`no_pembimbing`='$no_pembimbing' WHERE `sekolah`.`id_sekolah` = '$id_sekolah'";
+    $result = run($sql);
+        return $result;
+}
+
+function ganti_sekolah($email,$id){
+    $email = cek_string($email);
+    $sql = "UPDATE `pengguna` SET `id_sekolah` = '$id' WHERE `pengguna`.`email` = '$email'";
+    $result = run($sql);
+    return $result;
+}
+
+function potong_judul($judul){
+    $panjang = strlen($judul);
+    if($panjang > 70){
+        $judul = substr($judul,0,70);
+        return $judul.'...';
     }else{
-        return $foto;
+        return $judul;
     }
 }
 
-function getid_sekolah($email){
-    $sql = " SELECT id_sekolah FROM pengguna WHERE email = '$email'";
-    $result = result($sql);
-    $result = mysqli_fetch_assoc($result);
-    $id = $result['id_sekolah'];
-    if(!$id){
-        die();
-    }else{
-        return $id;
-    }
-}
 
 ?>

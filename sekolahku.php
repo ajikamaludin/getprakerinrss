@@ -62,7 +62,7 @@ include 'view/sidenav.php';
             </div>            
         </form>
               <div class="fixed-action-btn">
-                    <a href="./edit_sekolahku.php" class="btn-floating btn-large red">
+                    <a href="./edit_sekolahku_sekolah.php" class="btn-floating btn-large red">
                         <i class="large material-icons">mode_edit</i>
                     </a>
             </div>
@@ -72,7 +72,10 @@ include 'view/sidenav.php';
                 <a href="foto_sekolahku.php" class="btn waves-effect waves-light" type="submit" name="action">Logo Sekolah
                     <i class="material-icons right">send</i>
                 </a>
-                <a href="foto_sekolahku.php" class="btn waves-effect waves-light" type="submit" name="action">Logo Sekolah
+                <a href="edit_sekolahku_sekolah.php" class="btn waves-effect waves-light" type="submit" name="action">Sekolah
+                    <i class="material-icons right">send</i>
+                </a>
+                <a href="edit_sekolahku_pembimbing.php" class="btn waves-effect waves-light" type="submit" name="action">Pembimbing
                     <i class="material-icons right">send</i>
                 </a>
             </div>

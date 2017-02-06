@@ -27,7 +27,7 @@ function register_user($nama,$asal_sekolah,$jurusan,$url_blog,$email,$password){
     $nama = cek_string($nama);
     $id_sekolah = cek_string($asal_sekolah);
     $jurusan = cek_string($jurusan);
-    $url_blog = cek_string(cek_urlblog($url_blog));
+    $url_blog = cek_string($url_blog);
     $email = cek_string($email);
     $password = cek_string($password);
     $password = md5($password);

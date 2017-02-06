@@ -11,3 +11,7 @@ $(document).on('click', '#edit_profile', function() {
 $(document).ready(function() {
    $('select').material_select();
 }); 
+$('#rsync').click(function(){
+	$('#loader').fadeIn();
+	$('#data-table').fadeOut();
+});
