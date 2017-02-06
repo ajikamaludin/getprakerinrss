@@ -1,8 +1,9 @@
 <?php
 include 'view/header.php';
-
 session_cek();
+
 $sekolah = tampil_sekolah($_SESSION['user']);
+
 ?>
 
 
@@ -22,14 +23,13 @@ include 'view/sidenav.php';
                         <select name="asal_sekolah">
                             <option name="asal_sekolah" value="<?= $sekolah['id_sekolah'];?>"> <?= $sekolah['nama_sekolah'];?> </option>
                             <?php
-                            $data = pilih_sekolah();
-                           while( $all_sekolah = mysqli_fetch_assoc($data) ):
+                                $data = pilih_sekolah();
+                                while( $all_sekolah = mysqli_fetch_assoc($data) ):
                             ?>
-                            <option name="asal_sekolah" value="<?= $all_sekolah['id_sekolah'];?>"> <?= $all_sekolah['nama_sekolah'];?> </option>
+                                <option name="asal_sekolah" value="<?= $all_sekolah['id_sekolah'];?>"> <?= $all_sekolah['nama_sekolah'];?> </option>
                             <?php
-                            endwhile;
+                                endwhile;
                             ?>
-                            <option name="asal_sekolah" value=""> Sekolah Belum Terdata </option>
                         </select>
                     <label>Sekolah</label>
                     </div>

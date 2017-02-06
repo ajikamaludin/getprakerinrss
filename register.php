@@ -51,7 +51,7 @@ if(isset($_POST['submit'])){
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <select name="asal_sekolah">
+                        <select name="asal_sekolah" required>
                             <option name="asal_sekolah" value="" disabled selected>Pilih Sekolah Asal</option>
                             <?php
                             $data = pilih_sekolah();
@@ -61,14 +61,15 @@ if(isset($_POST['submit'])){
                             <?php
                             endwhile;
                             ?>
-                            <option name="asal_sekolah" value="0"> Sekolah Belum Terdata </option>
+                            <option name="asal_sekolah" value="1"> Sekolah Belum Terdata </option>
                         </select>
                     <label>Sekolah</label>
                     </div>
                 </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <select name="jurusan">
+                    <select name="jurusan" required>
+                            <option name="jurusan" value="TKJ" disabled selected>Pilih Jurusan</option>
                             <option name="jurusan" value="TKJ"> TKJ </option>
                             <option name="jurusan" value="RPL"> RPL </option>
                             <option name="jurusan" value="MM"> MM </option>

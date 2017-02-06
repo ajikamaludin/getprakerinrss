@@ -10,7 +10,7 @@ if(isset($_POST['submit'])){
   $password_baru_re = $_POST['password_baru_re'];
   if( $password_baru == $password_baru_re ){
     if(cek_password($_SESSION['user'],$password)){
-      $result = ubah_password($_SESSION['user'],$_POST['password']);
+      $result = ubah_password($_SESSION['user'],$_POST['password_baru']);
       if($result){
         $pesan ='berhasil';
         header('Location: profile.php');

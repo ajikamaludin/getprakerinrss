@@ -1,16 +1,19 @@
 <?php
 include 'view/header.php';
 session_cek();
-$posts = tampil_post_by($_SESSION['user']);
+//$foto = tampil_foto();
 
 $pesan = '';
 
 if(isset($_POST['submit'])){
-  //die(var_dump($pesan = $_FILES['foto_profile']));
-
   $file = $_FILES['foto_profile'];
-  
-  upload_foto($file,$_SESSION['user']);
+  $upload = upload_foto($file,$_SESSION['user'],'profile');
+  if($upload){
+    $pesan = "Upload Sukses";
+  }else{
+    $pesan = "Upload Gagal";
+  }
+
 
 }
 
@@ -26,9 +29,10 @@ include 'view/sidenav.php';
       <div class="col s12 m8 l9"> 
         <div class="row"></div>
         <div class="row ">
+        <h4>Foto Profile</h4>
         <?= $pesan ?>
            <div class="col m4">
-             <img src="./asset/img/profile/empty-profile.png" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+             <img src="./asset/img/profile/<?= $foto ?>" alt="" class="circle responsive-img">
            </div>
         </div>
         <div class="row">
@@ -47,7 +51,7 @@ include 'view/sidenav.php';
               </div>            
             </form>
             </div>
-          <div class="row" ><p>Syarat Gambar : Format PNG/JPEG/JPG , Bukan 3gp , Ukuran Max: 1Mb</p></div>
+          <div class="row" ><p>Syarat Gambar : Format PNG/JPEG/JPG Bukan 3gp , Ukuran Max: 1Mb</p></div>
         </div>
       </div>
 

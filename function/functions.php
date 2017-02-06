@@ -1,6 +1,6 @@
 <?php
 function pilih_sekolah(){
-    $sql = "SELECT id_sekolah,nama_sekolah FROM `sekolah`";
+    $sql = "SELECT id_sekolah,nama_sekolah,logo_sekolah FROM `sekolah`";
     $result = result($sql);
     return $result;
 }
@@ -178,24 +178,53 @@ function format_tgl($tgl){
     return $tgl;
 }
 
-function upload_foto($file,$email){
+function upload_foto($file,$email,$dir){
     //die(var_dump($file));
     $nama_foto = $file['name'];
     $ukuran_foto = $file['size'];
     $format_foto = $file['type'];
     $tmp_foto = $file['tmp_name'];
     $error_foto = $file['error'];
-    $acak = time();
-    $simpan = "asset/img/profile".$nama_foto;
+    $simpan = "asset/img/".$dir.'/'.$nama_foto;
 
     if( $error_foto == 0 ){
         if($ukuran_foto < 1024000){
             if($format_foto == 'image/jpeg' || $format_foto == 'image/jpg' || $format_foto == 'image/png' ){
                 if(file_exists($simpan)){
-                    $nama_foto = cek_foto($nama_foto,$format_foto);
-                    if(simpan_foto($nama_foto,$email)){
-                        move_uploaded_file($tmp_foto, $simpan);
-                        return true; 
+                    $nama_foto = cek_foto($nama_foto,$format_foto,$email);
+                    $simpan = "asset/img/".$dir.'/'.$nama_foto;
+                    if($dir == 'profile'){
+                        if(simpan_foto_profile($nama_foto,$email)){
+                            move_uploaded_file($tmp_foto, $simpan);
+                            return true; 
+                        }else{
+                            die();
+                        }
+                    }elseif($dir == 'sekolah'){
+                        if(simpan_foto_sekolah($nama_foto,$email)){
+                            move_uploaded_file($tmp_foto, $simpan);
+                            return true; 
+                        }else{
+                            die();
+                        }
+                    }else{
+                        die();
+                    }
+                }else{
+                    $nama_foto = cek_foto($nama_foto,$format_foto,$email);
+                    $simpan = "asset/img/".$dir.'/'.$nama_foto;
+                    if($dir == 'profile'){
+                        if(simpan_foto_profile($nama_foto,$email)){
+                            move_uploaded_file($tmp_foto, $simpan);
+                            return true; 
+                        }
+                    }elseif($dir == 'sekolah'){
+                        if(simpan_foto_sekolah($nama_foto,$email)){
+                            move_uploaded_file($tmp_foto, $simpan);
+                            return true; 
+                        }
+                    }else{
+                        die();
                     }
                 }
             }else{
@@ -211,17 +240,60 @@ function upload_foto($file,$email){
 
 }
 
-function cek_foto($nama,$ekstensi){
+function cek_foto($nama,$ekstensi,$email){
+    $acak = time();
     $ekstensi = str_replace('image/','.', $ekstensi);
     $nama_foto = str_replace($ekstensi, "", $nama);
-    $nama_foto = $nama_foto.'_'.$acak.'.'$ekstensi;
+    $nama_foto = $nama_foto.'_'.$acak.'_'.$email.$ekstensi;
     return $nama_foto;
 }
 
-function simpan_foto($nama,$email){
-    $sql = "";
+function simpan_foto_profile($nama,$email){
+    $email = cek_string($email);
+    $sql = "UPDATE `pengguna` SET `foto_profile` = '$nama' WHERE `pengguna`.`email` = '$email' ";
     $result = run($sql);
     return $result;
+}
+
+function simpan_foto_sekolah($nama,$email){
+    $id = getid_sekolah($email);
+    $email = cek_string($email);
+    $sql = "UPDATE `sekolah` SET `logo_sekolah` = '$nama' WHERE `sekolah`.`id_sekolah` = '$id' ";
+    $result = run($sql);
+    return $result;
+}
+
+function tampil_foto(){
+    $profiles = tampil_profile($_SESSION['user']);
+    $foto = $profiles['foto_profile'];
+    if ($foto == NULL) {
+        return 'empty-profile.png';
+    }else{
+        return $foto;
+    }
+}
+
+function tampil_logo(){
+    $sekolah = tampil_sekolah($_SESSION['user']);
+    $foto = $sekolah['logo_sekolah'];
+    //die(print_r($foto));
+    if ($foto == NULL) {
+        return 'NULL';
+    }else{
+        return $foto;
+    }
+}
+
+function getid_sekolah($email){
+    $sql = " SELECT id_sekolah FROM pengguna WHERE email = '$email'";
+    $result = result($sql);
+    $result = mysqli_fetch_assoc($result);
+    $id = $result['id_sekolah'];
+    if(!$id){
+        die();
+    }else{
+        return $id;
+    }
 }
 
 ?>
