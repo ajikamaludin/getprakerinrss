@@ -36,7 +36,8 @@ function register_user($nama,$asal_sekolah,$jurusan,$url_blog,$email,$password){
         $register = run($sql);
         if($register){
             $id_user = mysqli_insert_id($link);
-            $sync_blog = sync_blog($id_user,$url_blog);
+            $date = get_date_pengguna($email);
+            $sync_blog = sync_blog($id_user,$url_blog,$date);
             if($sync_blog){
                 return 'true';
             }else{
@@ -50,6 +51,8 @@ function register_user($nama,$asal_sekolah,$jurusan,$url_blog,$email,$password){
     }
 
 }
+
+
 
 function cek_email($email){
     $sql = "SELECT email FROM `pengguna` WHERE email='$email'";

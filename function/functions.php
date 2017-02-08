@@ -21,7 +21,6 @@ function input_data_profile($nisn,$nama,$email,$asal_sekolah,$alamat,$tempat_lah
     $nama = cek_string($nama);
     $email = cek_string($email);
     $asal_sekolah = cek_string($asal_sekolah);
-    $url_blog = cek_urlblog($url_blog);
     $no_hp = cek_string(cek_nohp($no_hp));
     $alamat = cek_string($alamat);
     $tempat_lahir = cek_string($tempat_lahir);
@@ -31,6 +30,8 @@ function input_data_profile($nisn,$nama,$email,$asal_sekolah,$alamat,$tempat_lah
     $tgl_keluar = cek_string($tgl_keluar);
     $jurusan = cek_string($jurusan);
     $link_fb = cek_string($link_fb);
+    $url_blog = cek_urlblog($url_blog);
+    $url_blog = update_blog($email,$url_blog,$tgl_masuk);
     $sql_pengguna = "UPDATE `pengguna` SET `nama` = '$nama', `email` = '$email', `nisn` = '$nisn', `alamat` = '$alamat', `kota_lahir` = '$tempat_lahir', `tgl_lahir` = '$tgl_lahir', `masa_prakerin` = '$masa_prakerin', `tgl_masuk` = '$tgl_masuk', `tgl_keluar` = '$tgl_keluar', `jurusan` = '$jurusan', `url_blog` = '$url_blog', `link_fb` = '$link_fb', `no_hp` = '$no_hp' WHERE `pengguna`.`id_pengguna` = '$valid' ";
     if(run($sql_pengguna)){
         if(cek_sekolah($asal_sekolah)){
@@ -45,6 +46,18 @@ function input_data_profile($nisn,$nama,$email,$asal_sekolah,$alamat,$tempat_lah
         return false;
     }
     
+}
+
+function update_blog($email,$new_url_blog,$date){
+    $old_url_blog = geturl_blog($email);
+    if($old_url_blog == $new_url_blog){
+        return $old_url_blog;
+    }else{
+        $id = getid_pengguna($email);
+        drop_post_by($email);
+        sync_blog($id,$new_url_blog,$date);
+        return $new_url_blog;
+    }
 }
 
 function drop_post($id_user){
@@ -68,6 +81,7 @@ function format_tgl($tgl){
     $tgl =  date_format($tgl, 'l, d-m-Y');
     return $tgl;
 }
+
 
 function simpan_foto_profile($nama,$email){
     $email = cek_string($email);
@@ -127,5 +141,10 @@ function potong_judul($judul){
     }
 }
 
+function hapus_post_by($id_pengguna,$id_post){
+    $sql = "DELETE FROM all_blog WHERE id_pengguna = '$id_pengguna' AND id_my_blog = '$id_post' ";
+    $result = run($sql);
+    return $result;
+}
 
 ?>

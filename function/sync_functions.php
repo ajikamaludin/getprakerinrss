@@ -1,9 +1,9 @@
 <?php
 
-function sync_blog($id_user,$url_blog){
+function sync_blog($id_user,$url_blog,$date){
     global $link;
     $url_blog = cek_urlblog($url_blog);
-    $url = $url_blog.'/feeds/posts/default?max-results=300';
+    $url = $url_blog.'/feeds/posts/default?max-results=300&published-min='.$date.'T00:00:00';
     $xml = simplexml_load_file($url);
     if($xml){
         $data = $xml->entry;
@@ -30,12 +30,14 @@ function sync_blog($id_user,$url_blog){
 }
 
 function resync_blog($email){
-    $sql = "SELECT url_blog,id_pengguna FROM pengguna WHERE email='$email'";
+    $sql = "SELECT url_blog,id_pengguna,tgl_masuk FROM pengguna WHERE email='$email'";
     $data = result($sql);
     $data = mysqli_fetch_assoc($data);
     $id = $data['id_pengguna'];
     $url_blog = $data['url_blog'];
-    sync_blog($id,$url_blog);
+    $date = $data['tgl_masuk'];
+    $date = cek_date($date);
+    sync_blog($id,$url_blog,$date);
 }
 
 ?>

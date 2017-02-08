@@ -88,4 +88,29 @@ function getid_sekolah($email){
     }
 }
 
+function geturl_blog($email){
+    $sql = "SELECT url_blog FROM pengguna WHERE email= '$email' ";
+    $result = result($sql);
+    $get_url_blog = mysqli_fetch_assoc($result);
+    $url_blog = $get_url_blog['url_blog'];
+    return $url_blog;
+}
+
+function get_date_pengguna($email){
+    $sql = " SELECT tgl_masuk FROM pengguna WHERE email = '$email'";
+    $result = result($sql);
+    $date = mysqli_fetch_assoc($result);
+    $date = $date['tgl_masuk'];
+    cek_date($date);
+}
+
+function cek_date($date){
+    $subdate = substr($date, 0,3);
+    if ($subdate == '000') {
+        return date("Y-m-d");
+    }else{
+        return $date;
+    }
+}
+
 ?>

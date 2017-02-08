@@ -1,13 +1,16 @@
 <?php
 include 'view/header.php';
 session_cek();
-$posts = tampil_post_by($_SESSION['user']);
+$posts = tampil_post_by($_SESSION['user'],'7');
+
 if(isset($_POST['sync'])){
   resync_blog($_SESSION['user']);
   header('Refresh:0');
 }elseif (isset($_POST['dropall'])) {
   drop_post_by($_SESSION['user']);
   header('Refresh:0');
+}elseif(isset($_POST['more'])){
+  $posts = tampil_post_by($_SESSION['user'],'255');
 }
 ?>
 
@@ -80,11 +83,11 @@ include 'view/sidenav.php';
           <?php
           foreach($posts as $post){
           ?> 
-            <tr>
+            <tr id="data_<?= $post['id_my_blog']?>">
               <td> <?= format_tgl($post['tgl_post'])?> </td>
               <td> <?= potong_judul($post['judul_post'])?> </td>
               <td> <?= $post['nama']?> </td>
-              <td> <a href="#" class="">Hapus</a> </td>
+              <td> <a href="#" class="hapus_post" data-id="<?= $post['id_pengguna']?>" data-postid="<?= $post['id_my_blog']?>">Hapus</a> </td>
             </tr>
           <?php
           }
@@ -94,9 +97,9 @@ include 'view/sidenav.php';
         </div>
         <div class="row">
           <form method="post">
-            <a class="waves-effect waves-light btn">Tampilkan Lagi</a>
+            <input type="submit" name="more" class="waves-effect waves-light btn" value="Tampilkan Semua" />
             <a class="waves-effect waves-light btn">Download PDF</a>
-            <a class="waves-effect waves-light btn">Download ODT</a>
+            <input type="submit" class="waves-effect waves-light btn" value="Download ODT" />
             <input id="rsync" class="waves-effect waves-light btn" type="submit" name="sync" value="Re-Sync Post" />
             <input class="waves-effect waves-light btn" type="submit" name="dropall" value="Delete All Post" />
           </form>

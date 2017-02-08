@@ -101,7 +101,7 @@ if(isset($_POST['submit'])){
                         <label for="password">Repeat Password</label>
                     </div>
                 </div>
-                <button class="btn waves-effect waves-light" type="submit" name="submit">Register</button>
+                <button class="btn waves-effect waves-light" type="submit" name="submit">Daftar</button>
             </form>
         </div>
         <?php
