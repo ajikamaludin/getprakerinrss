@@ -11,6 +11,8 @@ if(isset($_POST['sync'])){
   header('Refresh:0');
 }elseif(isset($_POST['more'])){
   $posts = tampil_post_by($_SESSION['user'],'255');
+}elseif(isset($_POST['print_jurnal_pdf'])){
+  download_jurnal_pdf($_SESSION['user']);
 }
 ?>
 
@@ -85,7 +87,7 @@ include 'view/sidenav.php';
           ?> 
             <tr id="data_<?= $post['id_my_blog']?>">
               <td> <?= format_tgl($post['tgl_post'])?> </td>
-              <td> <?= potong_judul($post['judul_post'])?> </td>
+              <td> <a href="<?= $post['url_post'] ?>" target="_blank" > <?= potong_judul($post['judul_post'])?> </a> </td>
               <td> <?= $post['nama']?> </td>
               <td> <a href="#" class="hapus_post" data-id="<?= $post['id_pengguna']?>" data-postid="<?= $post['id_my_blog']?>">Hapus</a> </td>
             </tr>
@@ -98,8 +100,8 @@ include 'view/sidenav.php';
         <div class="row">
           <form method="post">
             <input type="submit" name="more" class="waves-effect waves-light btn" value="Tampilkan Semua" />
-            <a class="waves-effect waves-light btn">Download PDF</a>
-            <input type="submit" class="waves-effect waves-light btn" value="Download ODT" />
+            <input type="submit" name="print_jurnal_pdf" class="waves-effect waves-light btn" value="Download PDF">
+            <input type="submit" name="print_jurnal_odt" class="waves-effect waves-light btn" value="Download ODT" />
             <input id="rsync" class="waves-effect waves-light btn" type="submit" name="sync" value="Re-Sync Post" />
             <input class="waves-effect waves-light btn" type="submit" name="dropall" value="Delete All Post" />
           </form>

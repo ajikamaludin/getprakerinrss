@@ -28,10 +28,10 @@ function register_user($nama,$asal_sekolah,$jurusan,$url_blog,$email,$password){
     $id_sekolah = cek_string($asal_sekolah);
     $jurusan = cek_string($jurusan);
     $url_blog = cek_string($url_blog);
-    $email = cek_string($email);
+    $email1 = cek_string($email);
     $password = cek_string($password);
     $password = md5($password);
-    $sql = "INSERT INTO `pengguna` (`nama`,`email`,`password`,`id_sekolah`,`jurusan`,`url_blog`,`status`) VALUES ('$nama', '$email', '$password', '$id_sekolah','$jurusan','$url_blog','aktiv')";
+    $sql = "INSERT INTO `pengguna` (`nama`,`email`,`password`,`id_sekolah`,`jurusan`,`url_blog`,`status`) VALUES ('$nama', '$email1', '$password', '$id_sekolah','$jurusan','$url_blog','aktiv')";
     if(cek_email($email)){
         $register = run($sql);
         if($register){
@@ -51,8 +51,6 @@ function register_user($nama,$asal_sekolah,$jurusan,$url_blog,$email,$password){
     }
 
 }
-
-
 
 function cek_email($email){
     $sql = "SELECT email FROM `pengguna` WHERE email='$email'";

@@ -97,11 +97,19 @@ function geturl_blog($email){
 }
 
 function get_date_pengguna($email){
-    $sql = " SELECT tgl_masuk FROM pengguna WHERE email = '$email'";
+    $email = cek_string($email);
+    $sql = " SELECT tgl_masuk FROM pengguna WHERE email = '$email' ";
     $result = result($sql);
-    $date = mysqli_fetch_assoc($result);
-    $date = $date['tgl_masuk'];
-    cek_date($date);
+    if($result){
+        $date = mysqli_fetch_assoc($result);
+        $date = $date['tgl_masuk'];
+        $date = cek_date($date);
+        die(print_r($date));
+        return $date;
+    }else{
+        $date = cek_date('0000-00-00');
+        return $date;
+    }
 }
 
 function cek_date($date){
