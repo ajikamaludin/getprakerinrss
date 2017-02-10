@@ -12,6 +12,6 @@ define("FB", "http://facebook.com/ajikamaludin19");
 define('HOST_URL', "localhost");
 define('HOST_USER', "root");
 define('HOST_PASSWORD', "blc");
-define('HOST_DB', "blc-prak");
+define('HOST_DB', "dev_blc_prak");
 
 ?>
