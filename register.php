@@ -40,7 +40,7 @@ if(isset($_POST['submit'])){
       </div>
 
       <div class="col m6">
-      <h3>Daftar Prakerin LUA</h3>
+      <h3>Daftar Prakerin LUA</h3><p style="margin-top: -25px;margin-left: 5px;margin-bottom: 30px;">Version <?= VERSION_APP ?></p>
         <div class="row">
             <form class="col s12" method="POST">
                 <div class="row">

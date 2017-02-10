@@ -2,9 +2,8 @@
 include 'print_function.php';
 
 $email =$_GET['email'];
-$posts = tampil_post_by($email,'500');
+$posts = tampil_post_by_asc($email,'500');
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +19,7 @@ $posts = tampil_post_by($email,'500');
   <div class="container">
   <div class="row">
   <div class="col-md-10">
-  <h2>Jurnal Prakerin</h2>
+  <h3>Jurnal Prakerin</h3>
 	<table class="table table-bordered">
 		<tr>
 			<th>No</th>
@@ -36,8 +35,8 @@ $posts = tampil_post_by($email,'500');
 		<tr>
 			<th><?= $i ?></th>
 			<th><?= format_tgl($post['tgl_post'])?> </th>
-			<th><?= potong_judul($post['judul_post'])?> </th>
-			<th>http://ajikamaludin.blogspot.com</th>
+			<th><?= $post['judul_post']?> </th>
+			<th><?= $post['url_post']?></th>
 			<th></th>
 		</tr>
 		<?php

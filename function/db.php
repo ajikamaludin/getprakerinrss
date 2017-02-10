@@ -1,10 +1,5 @@
 <?php
 
-    $host = 'localhost';
-    $user = 'root';
-    $password = 'blc';
-    $dbname = 'blc-prak';
-
-    $link = mysqli_connect($host,$user,$password,$dbname);
+    $link = mysqli_connect(HOST_URL,HOST_USER,HOST_PASSWORD,HOST_DB);
 
 ?>

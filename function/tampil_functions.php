@@ -13,6 +13,13 @@ function tampil_post_by($email,$lim){
     return $result;
 }
 
+function tampil_post_by_asc($email,$lim){
+    $sql = "SELECT all_blog.judul_post,all_blog.tgl_post,all_blog.id_my_blog,all_blog.url_post,all_blog.id_pengguna,pengguna.nama FROM `all_blog`,`pengguna` WHERE pengguna.email='$email' AND pengguna.id_pengguna=all_blog.id_pengguna ORDER BY `all_blog`.`tgl_post` ASC
+ LIMIT $lim";
+    $result = result($sql);
+    return $result;
+}
+
 function tampil_nama($email){
     $sql = " SELECT nama FROM pengguna WHERE email='$email' ";
     $result = result($sql);

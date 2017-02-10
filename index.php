@@ -12,7 +12,9 @@ if(isset($_POST['sync'])){
 }elseif(isset($_POST['more'])){
   $posts = tampil_post_by($_SESSION['user'],'255');
 }elseif(isset($_POST['print_jurnal_pdf'])){
-  download_jurnal_pdf($_SESSION['user']);
+  $email = $_SESSION['user'];
+  $nama = tampil_nama($_SESSION['user']);
+  header('Location: view/download/download_jurnal.php?email='.$email.'&nama='.$nama.'');
 }
 ?>
 
@@ -101,7 +103,7 @@ include 'view/sidenav.php';
           <form method="post">
             <input type="submit" name="more" class="waves-effect waves-light btn" value="Tampilkan Semua" />
             <input type="submit" name="print_jurnal_pdf" class="waves-effect waves-light btn" value="Download PDF">
-            <input type="submit" name="print_jurnal_odt" class="waves-effect waves-light btn" value="Download ODT" />
+            <!-- <input type="submit" name="print_jurnal_odt" class="waves-effect waves-light btn" value="Download ODT" disabled id="disabled" /> -->
             <input id="rsync" class="waves-effect waves-light btn" type="submit" name="sync" value="Re-Sync Post" />
             <input class="waves-effect waves-light btn" type="submit" name="dropall" value="Delete All Post" />
           </form>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../../function/db.php';
+include '../../function/config_functions.php';
 include '../../function/db.php';
 include '../../function/functions.php';
 include '../../function/tampil_functions.php';

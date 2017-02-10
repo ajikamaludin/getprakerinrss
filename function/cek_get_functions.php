@@ -58,7 +58,7 @@ function getid_pengguna($email){
 
 function cek_string($data){
     global $link;
-    $data = mysqli_real_escape_string($link,$data);
+    $data = mysqli_real_escape_string($link, $data);
     return $data;
 }
 
@@ -100,14 +100,14 @@ function get_date_pengguna($email){
     $email = cek_string($email);
     $sql = " SELECT tgl_masuk FROM pengguna WHERE email = '$email' ";
     $result = result($sql);
-    if($result){
+    $jumlah = mysqli_num_rows($result);
+    if($jumlah == 0){
+        $date = cek_date('0000-00-00');
+        return $date;
+    }else{
         $date = mysqli_fetch_assoc($result);
         $date = $date['tgl_masuk'];
         $date = cek_date($date);
-        die(print_r($date));
-        return $date;
-    }else{
-        $date = cek_date('0000-00-00');
         return $date;
     }
 }
@@ -115,7 +115,8 @@ function get_date_pengguna($email){
 function cek_date($date){
     $subdate = substr($date, 0,3);
     if ($subdate == '000') {
-        return date("Y-m-d");
+        $date = '2011-01-01';
+        return $date;
     }else{
         return $date;
     }

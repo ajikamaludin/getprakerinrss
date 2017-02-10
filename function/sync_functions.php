@@ -12,18 +12,17 @@ function sync_blog($id_user,$url_blog,$date){
             $judul_post = $blog->title;
             $judul_post = cek_string($judul_post);
             $isi_post = $blog->content;
-            $isi_post = mysqli_real_escape_string($link,$isi_post);
-            $link = $blog->link[4]['href'];
-            $link = cek_string($link);
+            $isi_post = cek_string($isi_post);
+            $url_post = $blog->link[4]['href'];
             if(cek_adapost($judul_post,$tgl_post,$id_user)){
-                $sql ="INSERT INTO `all_blog` (`judul_post`, `tgl_post`, `konten_post`,`url_post`, `id_pengguna`) VALUES ('$judul_post', '$tgl_post', '$isi_post', '$link', '$id_user')";
+                $sql = "INSERT INTO `all_blog` (`judul_post`, `tgl_post`, `konten_post`, `url_post`, `id_pengguna`) VALUES ('$judul_post', '$tgl_post', '$isi_post', '$url_post', '$id_user')";
                 $exec = mysqli_query($link,$sql);
                 $sync = true;
             }else{
-                $sync = false;
+                $sync = 'gagal';
             }
         }
-        return true;
+        return $sync;
     }elseif($xml == false){
         return false;
     }else{

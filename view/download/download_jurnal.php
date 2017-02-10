@@ -1,11 +1,12 @@
 <?php
 
-session_start();
-$email = $_SESSION['user'];
+$email = $_GET['email'];
+$nama = $_GET['nama'];
+$nama = 'LUA_'.$nama.date('_M-d-Y');
+
 require_once 'dompdf/autoload.inc.php';
 
 $html = 'http://localhost/getprakerin/view/print/print_jurnal.php?email='.$email;
-
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -24,8 +25,7 @@ $dompdf->setPaper('A4', 'portrait');
 // Render the HTML as PDF
 $dompdf->render();
 
-$user = time();
 // Output the generated PDF to Browser
-$dompdf->stream($user);
+$dompdf->stream($nama);
 
 ?>
