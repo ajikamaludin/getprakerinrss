@@ -14,8 +14,9 @@ $foto = tampil_foto();
                 </li>
             <li><a class="waves-effect" href="./index.php">Dashboard</a></li>
             <li><a class="waves-effect" href="./profile.php">Profile</a></li>
-            <li><a class="waves-effect" href="./profile.php">Laporan</a></li>
+            <li><a class="waves-effect" href="./laporan.php">Laporan</a></li>
             <li><a class="waves-effect" href="./sekolahku.php">Sekolah & Pembimbing</a></li>
+            <li><a class="waves-effect" href="./forum.php">Forum</a></li>
             <li><a class="waves-effect" href="./logout.php">Keluar</a></li>
             </ul>
       </div>

@@ -1,7 +1,7 @@
 <?php
 
 //Konsta App Information
-define("VERSION_APP", "0.0.1 Beta");
+define("VERSION_APP", "0.0.2 Beta");
 define("DEVELOPER_TEAM", "IT BLC-Telkom Team");
 define("AUTHOR", "Aji Kamaludin");
 define("GIT", "http://github.com/ajikamaludin");

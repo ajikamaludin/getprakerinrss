@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 10, 2017 at 06:28 PM
+-- Generation Time: Feb 15, 2017 at 05:13 PM
 -- Server version: 10.1.21-MariaDB-1~xenial
 -- PHP Version: 7.1.1-1+deb.sury.org~xenial+1
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `blc-prak`
+-- Database: `dev_blc_prak`
 --
 
 -- --------------------------------------------------------
@@ -71,6 +71,7 @@ CREATE TABLE `pengguna` (
 CREATE TABLE `sekolah` (
   `id_sekolah` int(11) NOT NULL,
   `nama_sekolah` varchar(50) NOT NULL,
+  `alamat_sekolah` text NOT NULL,
   `nama_pembimbing` varchar(100) NOT NULL,
   `no_pembimbing` varchar(12) NOT NULL,
   `tahun_ajaran` varchar(10) NOT NULL,
@@ -83,13 +84,8 @@ CREATE TABLE `sekolah` (
 -- Dumping data for table `sekolah`
 --
 
-INSERT INTO `sekolah` (`id_sekolah`, `nama_sekolah`, `nama_pembimbing`, `no_pembimbing`, `tahun_ajaran`, `kurikulum`, `thn_prakerin`, `logo_sekolah`) VALUES
-(1, 'SMK Muhammadiyah 1 Klaten Utara', 'Happy S.Kom', '081111111112', '2016/2017', 'KTSP', '2017', 'logo_1486368726_fadilajuni@gmail.com.png'),
-(2, 'SMK Hasan Kafrawi Mayong Jepara', 'Mualim S.T', '082222222222', '2016/2017', 'KTSP', '2017', 'hk_1486374254_aji19kamaludin@gmail.com.png'),
-(3, 'SMK NU Ma\'rif Kudus', 'Eko Julianto M.Kom', '083333333333', '2016/2017', 'K13/KTSP', '2017', 'logo_1486368618_aji19kamaludin@gmail.com.png'),
-(4, 'SMK Negeri 1 Banjit Lampung', 'Subuh Kurniawan M.Eng', '084444444444', '2016/2017', 'K13 Baru', '2017', ''),
-(5, 'SMK Negeri 2 Karanganyar', 'Tika', '084445556666', '2016/2017', 'KTSP', '2017', '20312071_1486438636_fadilajuni@gmail.com.png'),
-(6, 'SMK Muhammadiyah 2 Pekan Baru', 'P Widodo Songo', '089085608402', '2016/2017', 'K13/KTSP', '2017', 'Screenshot from 2017-02-07 18-20-33_1486466444_alvin@gmail.com.png');
+INSERT INTO `sekolah` (`id_sekolah`, `nama_sekolah`, `alamat_sekolah`, `nama_pembimbing`, `no_pembimbing`, `tahun_ajaran`, `kurikulum`, `thn_prakerin`, `logo_sekolah`) VALUES
+(1, 'BLC-Telkom', 'Jl.Srigading No.7,Tonggalan, Klaten', 'Mr. X', '083083083083', '2017/2018', 'KTSP', '2017', '');
 
 --
 -- Indexes for dumped tables
@@ -131,7 +127,7 @@ ALTER TABLE `pengguna`
 -- AUTO_INCREMENT for table `sekolah`
 --
 ALTER TABLE `sekolah`
-  MODIFY `id_sekolah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_sekolah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

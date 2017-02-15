@@ -16,11 +16,10 @@ function run($query){
     }
 }
 
-function input_data_profile($nisn,$nama,$email,$asal_sekolah,$alamat,$tempat_lahir,$tgl_lahir,$masa_prakerin,$tgl_masuk,$tgl_keluar,$jurusan,$url_blog,$link_fb,$no_hp,$valid){
+function input_data_profile($nisn,$nama,$email,$alamat,$tempat_lahir,$tgl_lahir,$masa_prakerin,$tgl_masuk,$tgl_keluar,$jurusan,$url_blog,$link_fb,$no_hp,$valid){
     $nisn = cek_string($nisn);
     $nama = cek_string($nama);
     $email = cek_string($email);
-    $asal_sekolah = cek_string($asal_sekolah);
     $no_hp = cek_string(cek_nohp($no_hp));
     $alamat = cek_string($alamat);
     $tempat_lahir = cek_string($tempat_lahir);
@@ -34,14 +33,7 @@ function input_data_profile($nisn,$nama,$email,$asal_sekolah,$alamat,$tempat_lah
     $url_blog = update_blog($email,$url_blog,$tgl_masuk);
     $sql_pengguna = "UPDATE `pengguna` SET `nama` = '$nama', `email` = '$email', `nisn` = '$nisn', `alamat` = '$alamat', `kota_lahir` = '$tempat_lahir', `tgl_lahir` = '$tgl_lahir', `masa_prakerin` = '$masa_prakerin', `tgl_masuk` = '$tgl_masuk', `tgl_keluar` = '$tgl_keluar', `jurusan` = '$jurusan', `url_blog` = '$url_blog', `link_fb` = '$link_fb', `no_hp` = '$no_hp' WHERE `pengguna`.`id_pengguna` = '$valid' ";
     if(run($sql_pengguna)){
-        if(cek_sekolah($asal_sekolah)){
-            $tahun_ini = date('Y');
-            $sql_sekolah = "INSERT INTO `sekolah` (`nama_sekolah`,`thn_prakerin`) VALUES ('$asal_sekolah','$tahun_ini')";
-            run($sql_sekolah);
-            return true;
-        }else{
-            return true;
-        }
+        return true;
     }else{
         return false;
     }
