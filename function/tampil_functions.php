@@ -63,4 +63,12 @@ function tampil_logo(){
     }
 }
 
+function tampil_laporan($email){
+    $id = getid_pengguna($email);
+    $sql = "SELECT id_laporan,kata_pengantar FROM all_laporan WHERE id_pengguna='$id'";
+    $result = result($sql);
+    $result = mysqli_fetch_assoc($result);
+    return $result;
+}
+
 ?>

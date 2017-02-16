@@ -33,6 +33,12 @@ include 'view/sidenav.php';
             </div>
             <div class="row">
                 <div class="input-field col s12">
+                <textarea disabled id="disabled" class="materialize-textarea" name="alamat"><?= $sekolah['alamat_sekolah'] ?></textarea>
+                <label for="textarea1">Alamat Sekolah</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
                 <input disabled value="<?= $sekolah['thn_prakerin'] ?>" name="tahun_prakerin" id="disabled" type="text" class="validate">
                 <label for="disabled">Tahun Prakerin</label>
                 </div>

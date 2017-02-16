@@ -9,13 +9,13 @@ $error = '';
 if(isset($_POST['submit'])){
     $capta = $_POST['g-recaptcha-response'];
     if(!$capta){
-        $pesan = "Perhatikan Captcha";
+        $error = "Perhatikan Captcha";
     }else{
         $email = $_POST['email'];
         $password = $_POST['password'];
         if(!empty(trim($email)) && !empty(trim($password))){
 
-            $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6Ldo9fkSAAAAAEmeYapWRYsjGicHUQ46mYys7TAf&response=".$capta."&remoteip=".$_SERVER['REMOTE_ADDR']);
+            $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".SECRET_KEY."&response=".$capta."&remoteip=".$_SERVER['REMOTE_ADDR']);
             $response = json_decode($response);
             if($response->success == false){
                 $pesan = "Captcha Salah";
@@ -65,7 +65,7 @@ if(isset($_POST['submit'])){
                     </div>
                 </div>
                 <div class="row" style="margin-left: 1px;">
-                    <div class="g-recaptcha" data-sitekey="6Ldo9fkSAAAAAG32L-gdfjN7zDpzaShdtEcpTthh"></div>
+                    <div class="g-recaptcha" data-sitekey="<?=DATA_SITE_KEY?>"></div>
                 </div>
                 <button class="btn waves-effect waves-light" type="submit" name="submit">Log In</button>
             </form>

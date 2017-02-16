@@ -28,7 +28,7 @@ if(isset($_POST['submit'])){
         $password = trim($_POST['password']);
         $repassword = trim($_POST['repassword']);
         if($password == $repassword){
-             $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6Ldo9fkSAAAAAEmeYapWRYsjGicHUQ46mYys7TAf&response=".$capta."&remoteip=".$_SERVER['REMOTE_ADDR']);
+             $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".SECRET_KEY."&response=".$capta."&remoteip=".$_SERVER['REMOTE_ADDR']);
             $response = json_decode($response);
             if($response->success == false){
                 $pesan = "Captcha Salah";
@@ -180,7 +180,7 @@ if(isset($_POST['submit'])){
                     </div>
                 </div>
                 <div class="row" style="margin-left: 1px;">
-                    <div class="g-recaptcha" data-sitekey="6Ldo9fkSAAAAAG32L-gdfjN7zDpzaShdtEcpTthh"></div>
+                    <div class="g-recaptcha" data-sitekey="<?=DATA_SITE_KEY?>"></div>
                 </div>
                 <div class="row" style="margin-left: 1px;">
                     <a href="tentang.php">Syarat dan Ketentuan</a> 

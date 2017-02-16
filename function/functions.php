@@ -90,16 +90,15 @@ function simpan_foto_sekolah($nama,$email){
     return $result;
 }
 
-function update_data_sekolah($email,$asal_sekolah,$tahun_ajaran,$kurikulum,$tahun_prakerin){
+function update_data_sekolah($email,$asal_sekolah,$alamat_sekolah,$tahun_ajaran,$kurikulum,$tahun_prakerin){
     $email = cek_string($email);
     $id_sekolah = cek_string($asal_sekolah);
-    $nama_pembimbing = cek_string($nama_pembimbing);
-    $no_pembimbing = cek_string($no_pembimbing);
+    $alamat_sekolah = cek_string($alamat_sekolah);
     $tahun_ajaran  = cek_string($tahun_ajaran);
     $kurikulum = cek_string($kurikulum);
     $tahun_prakerin = cek_string($tahun_prakerin);
     if(ganti_sekolah($email,$id_sekolah)){
-        $sql = "UPDATE `sekolah` SET `tahun_ajaran` = '$tahun_ajaran', `kurikulum` = '$kurikulum', `thn_prakerin` = '$tahun_prakerin' WHERE `sekolah`.`id_sekolah` = '$id_sekolah'";
+        $sql = "UPDATE `sekolah` SET `alamat_sekolah` = '$alamat_sekolah', `tahun_ajaran` = '$tahun_ajaran', `kurikulum` = '$kurikulum', `thn_prakerin` = '$tahun_prakerin' WHERE `sekolah`.`id_sekolah` = '$id_sekolah'";
         $result = run($sql);
         return $result;
     }else{
@@ -113,7 +112,15 @@ function update_data_pembimbing($email,$nama_pembimbing,$no_pembimbing){
     $no_pembimbing = cek_string($no_pembimbing);
     $sql = "UPDATE `sekolah` SET `nama_pembimbing`='$nama_pembimbing',`no_pembimbing`='$no_pembimbing' WHERE `sekolah`.`id_sekolah` = '$id_sekolah'";
     $result = run($sql);
-        return $result;
+    return $result;
+}
+
+function update_data_laporan($email,$katapengantar){
+    $id = getid_pengguna(cek_string($email));
+    $katapengantar = cek_string($katapengantar);
+    $sql = "UPDATE `all_laporan` SET `kata_pengantar` = '$katapengantar' WHERE `all_laporan`.`id_laporan` ='$id' ";
+    $result = run($sql);
+    return $result;
 }
 
 function ganti_sekolah($email,$id){

@@ -29,7 +29,7 @@ function register_user($nisn,$nama,$asal_sekolah,$jurusan,$url_blog,$no_telp,$al
     $id_sekolah = cek_string($asal_sekolah);
     $jurusan = cek_string($jurusan);
     $url_blog = cek_string($url_blog);
-    $no_telp = cek_string($no_telp);
+    $no_telp = cek_string(cek_nohp($no_telp));
     $alamat = cek_string($alamat);
     $tempat_lahir = cek_string($tempat_lahir);
     $tgl_lahir = cek_string($tgl_lahir);
