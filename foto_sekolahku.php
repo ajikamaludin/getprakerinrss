@@ -30,7 +30,7 @@ include 'view/sidenav.php';
         <h4>Logo Sekolah</h4>
         <?= $pesan ?>
            <div class="col m4">
-             <img src="./asset/img/sekolah/<?= $logo ?>" alt="" class="">
+             <img src="<?= ACCESS_FROM ?>/asset/img/sekolah/<?= $logo ?>" alt="" class="">
            </div>
         </div>
         <div class="row">

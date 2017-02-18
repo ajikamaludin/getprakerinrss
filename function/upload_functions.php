@@ -3,6 +3,7 @@
 function upload_foto($file,$email,$dir){
     //die(var_dump($file));
     $nama_foto = $file['name'];
+    $nama_foto = substr($nama_foto, 0,5);
     $ukuran_foto = $file['size'];
     $format_foto = $file['type'];
     $tmp_foto = $file['tmp_name'];

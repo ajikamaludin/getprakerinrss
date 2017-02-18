@@ -7,21 +7,33 @@ if(isset($_SESSION['user'])){
 
 $error = '';
 if(isset($_POST['submit'])){
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    if(!empty(trim($email)) && !empty(trim($password))){
-        if(cek_pengguna($email,$password) == 'true'){
-            $_SESSION['user'] = $email;
-            header('Location: index.php');
-        }elseif(cek_pengguna($email,$password) == 'selesai'){
-            header('Location: view/selamat.php');
-        }elseif(cek_pengguna($email,$password) == 'keluar'){
-            header('Location: view/mohon-maaf.php');
-        }else{
-            $error = 'Anda Punya Masalah Hidup Saat LogIn';
-        }
+    $capta = $_POST['g-recaptcha-response'];
+    if(!$capta){
+        $error = "Perhatikan Captcha";
     }else{
-        $error = 'E-mail dan Password Tidak Valid';
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        if(!empty(trim($email)) && !empty(trim($password))){
+
+            $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".SECRET_KEY."&response=".$capta."&remoteip=".$_SERVER['REMOTE_ADDR']);
+            $response = json_decode($response);
+            if($response->success == false){
+                $pesan = "Captcha Salah";
+            }else{
+                if(cek_pengguna($email,$password) == 'true'){
+                    $_SESSION['user'] = $email;
+                    header('Location: index.php');
+                }elseif(cek_pengguna($email,$password) == 'selesai'){
+                    header('Location: view/selamat.php');
+                }elseif(cek_pengguna($email,$password) == 'keluar'){
+                    header('Location: view/mohon-maaf.php');
+                }else{
+                    $error = 'Anda Punya Masalah Hidup Saat LogIn';
+                }
+            }
+        }else{
+            $error = 'E-mail dan Password Tidak Valid';
+        }
     }
 }
 
@@ -30,11 +42,11 @@ if(isset($_POST['submit'])){
 <div class="container">
 <div class="row"></div>
     <div class="row">
-      <div class="col m2">
+      <div class="col m1">
       <!--DIV KOSONG-->
       </div>
 
-      <div class="col m6">
+      <div class="col m5">
       <div>
         <h2>Prakerin LUA</h2><p style="margin-top: -25px;margin-left: 5px;margin-bottom: 30px;">Version <?= VERSION_APP ?></p>
       </div>
@@ -52,6 +64,9 @@ if(isset($_POST['submit'])){
                         <label for="password">Password</label>
                     </div>
                 </div>
+                <div class="row" style="margin-left: 1px;">
+                    <div class="g-recaptcha" data-sitekey="<?=DATA_SITE_KEY?>"></div>
+                </div>
                 <button class="btn waves-effect waves-light" type="submit" name="submit">Log In</button>
             </form>
         </div>
@@ -61,10 +76,7 @@ if(isset($_POST['submit'])){
         <p> Belum punya akun ? <a href="register.php">Register</a></p>
       </div>
 
-      <div class="col m4">
-      <!--DIV KOSONG-->
-      </div>
-
+      <div class="col m6"><!-- DIV KOSONG --></div>
     </div>
 </div>
 

@@ -13,8 +13,6 @@ if(isset($_POST['submit'])){
   }else{
     $pesan = "Upload Gagal";
   }
-
-
 }
 
 ?>
@@ -32,7 +30,7 @@ include 'view/sidenav.php';
         <h4>Foto Profile</h4>
         <?= $pesan ?>
            <div class="col m4">
-             <img src="./asset/img/profile/<?= $foto ?>" alt="" class="circle responsive-img">
+             <img src="<?= ACCESS_FROM ?>/asset/img/profile/<?= $foto ?>" alt="" class="circle responsive-img">
            </div>
         </div>
         <div class="row">

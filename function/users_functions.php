@@ -22,16 +22,27 @@ function cek_pengguna($email,$password){
     }
 }
 
-function register_user($nama,$asal_sekolah,$jurusan,$url_blog,$email,$password){
+function register_user($nisn,$nama,$asal_sekolah,$jurusan,$url_blog,$no_telp,$alamat,$tempat_lahir,$tgl_lahir,$masa_prakerin,$tgl_masuk,$tgl_keluar,$link_fb,$email,$password){
     global $link;
+    $nisn = cek_string($nisn);
     $nama = cek_string($nama);
     $id_sekolah = cek_string($asal_sekolah);
     $jurusan = cek_string($jurusan);
     $url_blog = cek_string($url_blog);
+    $no_telp = cek_string(cek_nohp($no_telp));
+    $alamat = cek_string($alamat);
+    $tempat_lahir = cek_string($tempat_lahir);
+    $tgl_lahir = cek_string($tgl_lahir);
+    $masa_prakerin = cek_string($masa_prakerin);
+    $tgl_masuk = cek_string($tgl_masuk);
+    $tgl_keluar = cek_string($tgl_keluar);
+    $link_fb = cek_string($link_fb);
     $email1 = cek_string($email);
     $password = cek_string($password);
     $password = md5($password);
-    $sql = "INSERT INTO `pengguna` (`nama`,`email`,`password`,`id_sekolah`,`jurusan`,`url_blog`,`status`) VALUES ('$nama', '$email1', '$password', '$id_sekolah','$jurusan','$url_blog','aktiv')";
+
+    $sql = "INSERT INTO `pengguna` (`nama`, `email`, `password`, `id_sekolah`, `nisn`, `alamat`, `kota_lahir`, `tgl_lahir`, `masa_prakerin`, `tgl_masuk`, `tgl_keluar`, `jurusan`, `url_blog`, `link_fb`, `no_hp`, `status`, `foto_profile`) VALUES ('$nama', '$email1', '$password', '$id_sekolah', '$nisn', '$alamat', '$tempat_lahir', '$tgl_lahir', '$masa_prakerin', '$tgl_masuk', '$tgl_keluar', '$jurusan', '$url_blog', '$link_fb', '$no_telp', 'aktiv', 'empty-profile.png')";
+
     if(cek_email($email)){
         $register = run($sql);
         if($register){

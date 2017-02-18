@@ -9,7 +9,6 @@ if(isset($_POST['submit'])){
         $nisn = trim($_POST['nisn']);
         $nama = trim($_POST['nama']);
         $email = trim($_POST['email']);
-        $asal_sekolah = trim($_POST['asal_sekolah']);
         $alamat = trim($_POST['alamat']);
         $tempat_lahir = trim($_POST['tempat_lahir']);
         $tgl_lahir = trim($_POST['tanggal_lahir']);
@@ -20,7 +19,7 @@ if(isset($_POST['submit'])){
         $url_blog = trim($_POST['url_blog']);
         $link_fb = trim($_POST['link_fb']);
         $no_hp = trim($_POST['no_hp']);
-        $result = input_data_profile($nisn,$nama,$email,$asal_sekolah,$alamat,$tempat_lahir,$tgl_lahir,$masa_prakerin,$tgl_masuk,$tgl_keluar,$jurusan,$url_blog,$link_fb,$no_hp,$valid);
+        $result = input_data_profile($nisn,$nama,$email,$alamat,$tempat_lahir,$tgl_lahir,$masa_prakerin,$tgl_masuk,$tgl_keluar,$jurusan,$url_blog,$link_fb,$no_hp,$valid);
         if($result){
             header('Location: profile.php');
         }else{
@@ -74,12 +73,6 @@ include 'view/sidenav.php';
                     </select>
                  <label>Jurusan</label>
             </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                <input value="<?= $profiles['nama_sekolah'] ?>" name="asal_sekolah" type="text" class="validate">
-                <label  >Sekolah</label>
-                </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">

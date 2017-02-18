@@ -103,7 +103,7 @@ include 'view/sidenav.php';
           <form method="post">
             <input type="submit" name="more" class="waves-effect waves-light btn" value="Tampilkan Semua" />
             <input type="submit" name="print_jurnal_pdf" class="waves-effect waves-light btn" value="Download PDF">
-            <!-- <input type="submit" name="print_jurnal_odt" class="waves-effect waves-light btn" value="Download ODT" disabled id="disabled" /> -->
+            <input type="submit" name="print_jurnal_odt" class="waves-effect waves-light btn" value="Download ODT" disabled id="disabled" />
             <input id="rsync" class="waves-effect waves-light btn" type="submit" name="sync" value="Re-Sync Post" />
             <input class="waves-effect waves-light btn" type="submit" name="dropall" value="Delete All Post" />
           </form>

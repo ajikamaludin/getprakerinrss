@@ -16,11 +16,10 @@ function run($query){
     }
 }
 
-function input_data_profile($nisn,$nama,$email,$asal_sekolah,$alamat,$tempat_lahir,$tgl_lahir,$masa_prakerin,$tgl_masuk,$tgl_keluar,$jurusan,$url_blog,$link_fb,$no_hp,$valid){
+function input_data_profile($nisn,$nama,$email,$alamat,$tempat_lahir,$tgl_lahir,$masa_prakerin,$tgl_masuk,$tgl_keluar,$jurusan,$url_blog,$link_fb,$no_hp,$valid){
     $nisn = cek_string($nisn);
     $nama = cek_string($nama);
     $email = cek_string($email);
-    $asal_sekolah = cek_string($asal_sekolah);
     $no_hp = cek_string(cek_nohp($no_hp));
     $alamat = cek_string($alamat);
     $tempat_lahir = cek_string($tempat_lahir);
@@ -34,14 +33,7 @@ function input_data_profile($nisn,$nama,$email,$asal_sekolah,$alamat,$tempat_lah
     $url_blog = update_blog($email,$url_blog,$tgl_masuk);
     $sql_pengguna = "UPDATE `pengguna` SET `nama` = '$nama', `email` = '$email', `nisn` = '$nisn', `alamat` = '$alamat', `kota_lahir` = '$tempat_lahir', `tgl_lahir` = '$tgl_lahir', `masa_prakerin` = '$masa_prakerin', `tgl_masuk` = '$tgl_masuk', `tgl_keluar` = '$tgl_keluar', `jurusan` = '$jurusan', `url_blog` = '$url_blog', `link_fb` = '$link_fb', `no_hp` = '$no_hp' WHERE `pengguna`.`id_pengguna` = '$valid' ";
     if(run($sql_pengguna)){
-        if(cek_sekolah($asal_sekolah)){
-            $tahun_ini = date('Y');
-            $sql_sekolah = "INSERT INTO `sekolah` (`nama_sekolah`,`thn_prakerin`) VALUES ('$asal_sekolah','$tahun_ini')";
-            run($sql_sekolah);
-            return true;
-        }else{
-            return true;
-        }
+        return true;
     }else{
         return false;
     }
@@ -77,9 +69,26 @@ function format_tgl($tgl){
     $tgl = date_create($tgl);
     $tgl = date_format($tgl,'m/d/Y');
     $tgl = $tgl;
-    $tgl = new DateTime("$tgl");
-    $tgl =  date_format($tgl, 'l, d-m-Y');
-    return $tgl;
+    $tgl_f = new DateTime("$tgl");
+    $tgl =  date_format($tgl_f, 'l');
+    $hari = substr($tgl, 0,3);
+    if($hari == 'Sun'){
+        $hari = "Minggu";
+    }elseif($hari == 'Mon'){
+        $hari = 'Senin';
+    }elseif($hari == 'Tue'){
+        $hari = 'Selasa';
+    }elseif($hari == 'Wed'){
+        $hari = 'Rabu';
+    }elseif($hari == 'Thu'){
+        $hari = 'Kamis';
+    }elseif($hari == 'Fri' ){
+        $hari = 'Jum\'at';
+    }elseif($hari == 'Sat'){
+        $hari = 'Sabtu';
+    }
+    $tgl = date_format($tgl_f, 'd-m-Y');
+    return $hari.', '.$tgl;
 }
 
 
@@ -98,16 +107,15 @@ function simpan_foto_sekolah($nama,$email){
     return $result;
 }
 
-function update_data_sekolah($email,$asal_sekolah,$tahun_ajaran,$kurikulum,$tahun_prakerin){
+function update_data_sekolah($email,$asal_sekolah,$alamat_sekolah,$tahun_ajaran,$kurikulum,$tahun_prakerin){
     $email = cek_string($email);
     $id_sekolah = cek_string($asal_sekolah);
-    $nama_pembimbing = cek_string($nama_pembimbing);
-    $no_pembimbing = cek_string($no_pembimbing);
+    $alamat_sekolah = cek_string($alamat_sekolah);
     $tahun_ajaran  = cek_string($tahun_ajaran);
     $kurikulum = cek_string($kurikulum);
     $tahun_prakerin = cek_string($tahun_prakerin);
     if(ganti_sekolah($email,$id_sekolah)){
-        $sql = "UPDATE `sekolah` SET `tahun_ajaran` = '$tahun_ajaran', `kurikulum` = '$kurikulum', `thn_prakerin` = '$tahun_prakerin' WHERE `sekolah`.`id_sekolah` = '$id_sekolah'";
+        $sql = "UPDATE `sekolah` SET `alamat_sekolah` = '$alamat_sekolah', `tahun_ajaran` = '$tahun_ajaran', `kurikulum` = '$kurikulum', `thn_prakerin` = '$tahun_prakerin' WHERE `sekolah`.`id_sekolah` = '$id_sekolah'";
         $result = run($sql);
         return $result;
     }else{
@@ -121,7 +129,15 @@ function update_data_pembimbing($email,$nama_pembimbing,$no_pembimbing){
     $no_pembimbing = cek_string($no_pembimbing);
     $sql = "UPDATE `sekolah` SET `nama_pembimbing`='$nama_pembimbing',`no_pembimbing`='$no_pembimbing' WHERE `sekolah`.`id_sekolah` = '$id_sekolah'";
     $result = run($sql);
-        return $result;
+    return $result;
+}
+
+function update_data_laporan($email,$katapengantar){
+    $id = getid_pengguna(cek_string($email));
+    $katapengantar = cek_string($katapengantar);
+    $sql = "UPDATE `all_laporan` SET `kata_pengantar` = '$katapengantar' WHERE `all_laporan`.`id_laporan` ='$id' ";
+    $result = run($sql);
+    return $result;
 }
 
 function ganti_sekolah($email,$id){
@@ -138,6 +154,16 @@ function potong_judul($judul){
         return $judul.'...';
     }else{
         return $judul;
+    }
+}
+
+function potong_isi($data){
+    $panjang = strlen($data);
+    if($panjang > 300){
+        $data = substr($data,0,300);
+        return $data.'...';
+    }else{
+        return $data;
     }
 }
 
