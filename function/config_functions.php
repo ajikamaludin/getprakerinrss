@@ -17,7 +17,7 @@ define("DATA_SITE_KEY","6Ldo9fkSAAAAAG32L-gdfjN7zDpzaShdtEcpTthh");
 //Konsta MySQL/MariaDB Information
 define('HOST_URL', "localhost");
 define('HOST_USER', "root");
-define('HOST_PASSWORD', "blc");
-define('HOST_DB', "dev_blc_prak");
+define('HOST_PASSWORD', "defack");
+define('HOST_DB', "dev-prak-blc");
 
 ?>

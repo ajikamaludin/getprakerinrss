@@ -7,13 +7,13 @@ $pesan ='';
 if(isset($_POST['submit'])){
   $judul_issue = $_POST['judul_issue'];
   $isi_issue = $_POST['isi_issue'];
-  $gambar_issue = $_POST['gambar_issue'];
+  $gambar_issue = $_FILES['gambar_issue'];
   $email = $_SESSION['user'];
   if(!empty($judul_issue) && !empty($isi_issue) ){
       $tambah = tambah_issue($email,$judul_issue,$isi_issue,$gambar_issue);
       if($tambah){
-        header('Location: forum.php')
-      }elseif(){
+        header('Location: forum.php');
+      }elseif(true){
 
       }else{
         $pesan = "gagal menambahkan issue";
@@ -37,7 +37,7 @@ include 'view/sidenav.php';
         <h4>Forum | Tambah Issue</h4>
         </div>
         <h5 style="text-indent: 20px" ><?= $pesan ?></h5>
-          <form action="" method="post">
+          <form action="" method="post" enctype="multipart/form-data">
                 <div class="row">
                 <div class="input-field col s12">
                   <input type="text" name="judul_issue">

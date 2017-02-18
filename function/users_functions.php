@@ -41,7 +41,7 @@ function register_user($nisn,$nama,$asal_sekolah,$jurusan,$url_blog,$no_telp,$al
     $password = cek_string($password);
     $password = md5($password);
 
-    $sql = "INSERT INTO `pengguna` (`nama`, `email`, `password`, `id_sekolah`, `nisn`, `alamat`, `kota_lahir`, `tgl_lahir`, `masa_prakerin`, `tgl_masuk`, `tgl_keluar`, `jurusan`, `url_blog`, `link_fb`, `no_hp`, `status`) VALUES ('$nama', '$email1', '$password', '$id_sekolah', '$nisn', '$alamat', '$tempat_lahir', '$tgl_lahir', '$masa_prakerin', '$tgl_masuk', '$tgl_keluar', '$jurusan', '$url_blog', '$link_fb', '$no_telp', 'aktiv')";
+    $sql = "INSERT INTO `pengguna` (`nama`, `email`, `password`, `id_sekolah`, `nisn`, `alamat`, `kota_lahir`, `tgl_lahir`, `masa_prakerin`, `tgl_masuk`, `tgl_keluar`, `jurusan`, `url_blog`, `link_fb`, `no_hp`, `status`, `foto_profile`) VALUES ('$nama', '$email1', '$password', '$id_sekolah', '$nisn', '$alamat', '$tempat_lahir', '$tgl_lahir', '$masa_prakerin', '$tgl_masuk', '$tgl_keluar', '$jurusan', '$url_blog', '$link_fb', '$no_telp', 'aktiv', 'empty-profile.png')";
 
     if(cek_email($email)){
         $register = run($sql);

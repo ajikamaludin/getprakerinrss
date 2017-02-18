@@ -69,9 +69,26 @@ function format_tgl($tgl){
     $tgl = date_create($tgl);
     $tgl = date_format($tgl,'m/d/Y');
     $tgl = $tgl;
-    $tgl = new DateTime("$tgl");
-    $tgl =  date_format($tgl, 'l, d-m-Y');
-    return $tgl;
+    $tgl_f = new DateTime("$tgl");
+    $tgl =  date_format($tgl_f, 'l');
+    $hari = substr($tgl, 0,3);
+    if($hari == 'Sun'){
+        $hari = "Minggu";
+    }elseif($hari == 'Mon'){
+        $hari = 'Senin';
+    }elseif($hari == 'Tue'){
+        $hari = 'Selasa';
+    }elseif($hari == 'Wed'){
+        $hari = 'Rabu';
+    }elseif($hari == 'Thu'){
+        $hari = 'Kamis';
+    }elseif($hari == 'Fri' ){
+        $hari = 'Jum\'at';
+    }elseif($hari == 'Sat'){
+        $hari = 'Sabtu';
+    }
+    $tgl = date_format($tgl_f, 'd-m-Y');
+    return $hari.', '.$tgl;
 }
 
 
@@ -137,6 +154,16 @@ function potong_judul($judul){
         return $judul.'...';
     }else{
         return $judul;
+    }
+}
+
+function potong_isi($data){
+    $panjang = strlen($data);
+    if($panjang > 300){
+        $data = substr($data,0,300);
+        return $data.'...';
+    }else{
+        return $data;
     }
 }
 

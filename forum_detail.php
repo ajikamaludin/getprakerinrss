@@ -1,6 +1,15 @@
 <?php
 include 'view/header.php';
 session_cek();
+
+if(isset($_GET['id'])){
+  $id = $_GET['id'];
+}else{
+  $id = 'NULL' ;
+}
+
+$tampil_forum_by = tampil_forum_by($id);
+
 ?>
     <div class="row">
 
@@ -18,34 +27,35 @@ include 'view/sidenav.php';
       </div>
       <div class="row"></div>
         <div class="row">
-          <h5>Masalah Saat Mengistall Aplikasi di Linux</h5>
+          <h5><?= $tampil_forum_by['judul_issue']; ?></h5>
           <hr>
           <table class="striped" >
           <tr>
             <td>
               <div class="row">
                 <div class="col s1">
-                  <img class="responsive-img circle" src="<?= ACCESS_FROM ?>/asset/img/profile/<?= $foto ?>">
+                  <img class="responsive-img circle" src="<?= ACCESS_FROM ?>/asset/img/profile/<?= $tampil_forum_by['foto_profile']; ?>">
                   <p>
-                    Aji Kamlaudin<br>
-                    2017-20-20
+                    <?= format_pengguna($tampil_forum_by['id_pengguna']); ?><br>
+                    <?= format_tgl($tampil_forum_by['waktu_issue']); ?>
                   </p>
                 </div>
                 <div class="col s11">
                   <p>
-                    masalah Ini Diskripsi isi dari disripsi percobaan percobaan in in in in in in masalah Ini Diskripsi isi dari disripsi percobaan percobaan in in in in in in masalah Ini Diskripsi isi dari disripsi percobaan percobaan in in in in in in masalah Ini Diskripsi isi dari disripsi percobaan percobaan in in in in in in masalah Ini Diskripsi isi dari disripsi percobaan percobaan in in in
+                    <?= $tampil_forum_by['isi_issue']; ?>
                   </p>
                 </div>
               </div>
             </td>
           </tr>
+          <!-- Bagian Komentar -->
           <tr>
             <td>
               <div class="row">
                 <div class="col s1 offset-s1">
                   <img class="responsive-img circle" src="<?= ACCESS_FROM ?>/asset/img/profile/<?= $foto ?>">
                   <p>
-                    Aji Kamlaudin<br>
+                    User - Pengguna<br>
                     2017-20-20
                   </p>
                 </div>
@@ -81,8 +91,7 @@ include 'view/sidenav.php';
             <form class="col s11 offset-s1" method="post" action="">
               <div class="row">
                 <div class="input-field col s12">
-                  <textarea id="textarea1" class="materialize-textarea"></textarea>
-                  <label for="textarea1">Komentar Baru</label>
+                  <textarea id="textarea1"></textarea>
                       <div class="file-field input-field">
                   <div class="btn">
                       <span>Gambar</span>
