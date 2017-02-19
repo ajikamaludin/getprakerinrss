@@ -13,7 +13,7 @@ function tampil_forum(){
 }
 
 function tampil_forum_by($id){
-	$sql = "SELECT forum.id_forum,forum.id_pengguna,forum.judul_issue,forum.isi_issue,forum.gambar_issue,forum.waktu_issue,forum.status_issue,pengguna.foto_profile FROM forum JOIN pengguna ON forum.id_pengguna=pengguna.id_pengguna WHERE id_forum = '$id'";
+	$sql = "SELECT forum.id_forum,forum.id_pengguna,forum.judul_issue,forum.isi_issue,forum.gambar_issue,forum.waktu_issue,forum.status_issue,pengguna.foto_profile,pengguna.email FROM forum JOIN pengguna ON forum.id_pengguna=pengguna.id_pengguna WHERE id_forum = '$id'";
 	$result = result($sql);
 	$result = mysqli_fetch_assoc($result);
 	return $result;
@@ -99,7 +99,7 @@ function komentar_issue($id_forum,$email,$komentar,$gambar){
 }
 
 function tampil_komentar_by($id){
-	$sql = "SELECT id_komentar,forum_komentar.id_pengguna,isi_komentar,gambar_komentar,waktu_komentar,pengguna.foto_profile FROM forum_komentar JOIN pengguna ON pengguna.id_pengguna=forum_komentar.id_pengguna WHERE id_forum='$id'";
+	$sql = "SELECT forum_komentar.id_komentar,forum_komentar.id_pengguna,forum_komentar.isi_komentar,forum_komentar.gambar_komentar,forum_komentar.waktu_komentar,pengguna.foto_profile,pengguna.email FROM forum_komentar JOIN pengguna ON pengguna.id_pengguna=forum_komentar.id_pengguna WHERE id_forum='$id'";
 	$result = result($sql);
 	return $result;
 }
@@ -109,6 +109,16 @@ function tampil_hasil_cari($cari){
 	$sql = "SELECT *  FROM `forum` WHERE `isi_issue` LIKE '%$cari%' OR `judul_issue` LIKE '%$cari%' ORDER BY `waktu_issue` DESC";
 	$result = result($sql);
 	return $result;
+}
+
+function hapus_issue($id){
+	$sql = "DELETE FROM forum WHERE id_forum = '$id'";
+	$sql2 = "DELETE FROM forum_komentar WHERE id_forum = '$id'";
+	if(run($sql)){
+		return run($sql2);
+	}else{
+		return false;
+	}
 }
 
 ?>

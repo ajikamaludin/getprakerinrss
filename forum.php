@@ -37,7 +37,12 @@ include 'view/sidenav.php';
             </div>            
         </div>
       <div class="row">
-        <?php if($cari_ok){
+        <?php
+        if($cari_ok){
+          $hasil = mysqli_num_rows($cari);
+          if($hasil <= 0){
+          echo "<p>Data Tidak Ditemukan</p>";
+          }
              foreach ($cari as $ditemukan) :?>
               <div class="row">
                 <div class="col s12">

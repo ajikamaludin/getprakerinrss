@@ -8,6 +8,21 @@ if(isset($_GET['id'])){
   $id = $_GET['id'];
   $tampil_forum_by = tampil_forum_by($id);
   $tampil_komentar_by = tampil_komentar_by($id);
+  if($tampil_forum_by['email'] == $_SESSION['user']){
+    if(isset($_GET['aksi'])){
+      $aksi = $_GET['aksi'];
+      if($aksi == 'hapus'){
+        $result = hapus_issue($id);
+        if($result){
+          header('Location: forum.php');
+        }else{
+          $pesan = 'gagal hapus issue';
+        }
+      }else{
+        $pesan = 'jangan coba coba';
+      }
+    }
+  }
 }else{
   $id = 'NULL' ;
 }
@@ -57,6 +72,13 @@ include 'view/sidenav.php';
                   <p>
                     <?= format_pengguna($tampil_forum_by['id_pengguna']); ?><br>
                     <?= format_tgl($tampil_forum_by['waktu_issue']); ?>
+                    <?php
+                      if($tampil_forum_by['email'] == $_SESSION['user']){
+                        echo "<a href='forum_edit_issue.php?id_issue=".$id."' > Edit </a>";
+                        echo " | ";
+                        echo "<a href='forum_detail.php?id=".$id."&aksi=hapus'> Hapus </a>";
+                      }
+                    ?>
                   </p>
                 </div>
                 <div class="col s10">
@@ -68,6 +90,8 @@ include 'view/sidenav.php';
                     echo "<img  class='materialboxed responsive-img' width='650' src=".ACCESS_FROM."/asset/img/forum/".$tampil_forum_by['gambar_issue']." type='image' />";
                   }
                   ?>
+                  <div class="card-action white-text">
+                  </div>
                 </div>
               </div>
             </td>
@@ -82,6 +106,13 @@ include 'view/sidenav.php';
                   <p>
                     <?= format_pengguna($tampil_komentar['id_pengguna']); ?><br>
                     <?= format_tgl($tampil_komentar['waktu_komentar']); ?>
+                    <?php
+                      if($tampil_komentar['email'] == $_SESSION['user']){
+                        echo "<a href='forum_edit_issue.php?id_issue=".$id."' > Edit </a>";
+                        echo " | ";
+                        echo "<a href='forum_detail.php?id=".$id."&aksi=hapus'> Hapus </a>";
+                      }
+                    ?>
                   </p>
                 </div>
                 <div class="col s9">
