@@ -13,8 +13,6 @@ if(isset($_POST['submit'])){
       $tambah = tambah_issue($email,$judul_issue,$isi_issue,$gambar_issue);
       if($tambah){
         header('Location: forum.php');
-      }elseif(true){
-
       }else{
         $pesan = "gagal menambahkan issue";
       }
@@ -54,8 +52,11 @@ include 'view/sidenav.php';
                   <div class="file-path-wrapper">
                     <input class="file-path validate" type="text">
                   </div>
+                  <p>Syarat Gambar : Format PNG/JPEG/JPG Bukan 3gp , Ukuran Max: 2Mb</p>
                 </div>
+
               </div>
+
                <input class="btn waves-effect waves-light" type="submit" name="submit" value="Tambah Issue">
           </form>
           <div class="fixed-action-btn horizontal">

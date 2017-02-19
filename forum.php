@@ -2,6 +2,16 @@
 include 'view/header.php';
 session_cek();
 $forum = tampil_forum();
+$hitsue = tampil_hits_issue();
+
+
+$cari_ok = false;
+if(isset($_POST['cari'])){
+  $cari_ok = true;
+  $cari = $_POST['cari'];
+  $cari = tampil_hasil_cari($cari);
+}
+
 
 ?>
     <div class="row">
@@ -12,37 +22,67 @@ include 'view/sidenav.php';
 ?>
     <!--main content-->
       <div class="col s12 m8 l9"> 
-      <div class="col m12">
+      <div class="col m8">
         <h4>Forum</h4>
           <blockquote>
             <p>Bagikan Masalah Anda Di Sini</p>
           </blockquote>
         </div>
-      <div class="row"></div>
+        <div class="col m4">
+            <div class="input-field col s12">
+               <form method="post" action="">
+                  <input id="cari" name="cari" type="text" class="validate">
+                  <label for="Cari">Cari</label>
+                </form>
+            </div>            
+        </div>
+      <div class="row">
+        <?php if($cari_ok){
+             foreach ($cari as $ditemukan) :?>
+              <div class="row">
+                <div class="col s12">
+                  <div class="card red darken-2">
+                    <div class="card-content white-text">
+                    <a href="forum_detail.php?id=<?= $ditemukan['id_forum']; ?>">
+                      <span class="card-title"><?= $ditemukan['judul_issue'];?></span>
+                    </a>
+                      <p><?= potong_isi($ditemukan['isi_issue']); ?></p>
+                    </div> 
+                  <div class="card-action white-text">
+                    <?= format_pengguna($ditemukan['id_pengguna']); ?>
+                  Pada: <?= format_tgl($ditemukan['waktu_issue']); ?>
+                  </div>
+                  </div>
+                </div>
+              </div>
+          <?php endforeach;
+           } ?>
+      </div>
         <div class="row">
           <h5>Hit's Issue</h5>
           <hr>
-          <table class="striped" >
-          <tr>
-            <td>
-            <a href="forum_detail.php">
-              <h6 style="font-weight: bold;font-size: 17px" >
-                Ini Masalah 1
-              </h6>
-            </a>
-            <p>
-              Ini Diskripsi isi dari disripsi percobaan percobaan in in in in in in 
-            </p>
-            <p>
-              Si Pengguna<br>
-              pada: 2017-20-20
-            </p>
-            </td>
-          </tr>
-          </table>
+          <?php foreach ($hitsue as $hit) {?>
+          <div class="row">
+            <div class="col s12">
+              <div class="card red darken-2">
+                <div class="card-content white-text">
+                <a href="forum_detail.php?id=<?= $hit['id_forum']; ?>">
+                  <span class="card-title"><?= $hit['judul_issue'];?></span>
+                </a>
+                  <p><?= potong_isi($hit['isi_issue']); ?></p>
+                </div> 
+              <div class="card-action white-text">
+                <?= format_pengguna($hit['id_pengguna']); ?>
+              Pada: <?= format_tgl($hit['waktu_issue']); ?>
+              </div>
+              </div>
+            </div>
+          </div>
+          <?php } ?>
+          </div>
           <div class="row" ></div>
-        <div class="row">
           <h5> New Issue</h5>
+
           <hr>
           <table class="striped" >
           <?php foreach ($forum as $tampil_forum) {?>
