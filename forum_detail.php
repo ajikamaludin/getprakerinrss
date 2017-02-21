@@ -3,7 +3,7 @@ include 'view/header.php';
 session_cek();
 $pesan = '';
 
-
+//Aksi Dalam Aksi
 if(isset($_GET['id'])){
   $id = $_GET['id'];
   $tampil_forum_by = tampil_forum_by($id);
@@ -18,6 +18,14 @@ if(isset($_GET['id'])){
         }else{
           $pesan = 'gagal hapus issue';
         }
+      }elseif($aksi == 'hapus_komentar'){
+        $id_komentar = $_GET['id_komentar'];
+        $result = hapus_komentar($id_komentar);
+        if($result){
+          header('Location: forum_detail.php?id='.$id);
+        }else{
+          $pesan = 'gagal hapus issue';
+        }
       }else{
         $pesan = 'jangan coba coba';
       }
@@ -27,7 +35,7 @@ if(isset($_GET['id'])){
   $id = 'NULL' ;
 }
 
-
+//Komentar Baru
 if(isset($_POST['submit'])){
   $komentar = $_POST['komentar'];
   $gambar = $_FILES['gambar_komentar'];
@@ -108,9 +116,7 @@ include 'view/sidenav.php';
                     <?= format_tgl($tampil_komentar['waktu_komentar']); ?>
                     <?php
                       if($tampil_komentar['email'] == $_SESSION['user']){
-                        echo "<a href='forum_edit_issue.php?id_issue=".$id."' > Edit </a>";
-                        echo " | ";
-                        echo "<a href='forum_detail.php?id=".$id."&aksi=hapus'> Hapus </a>";
+                        echo "<a href='forum_detail.php?id=".$id."&id_komentar=".$tampil_komentar['id_komentar']."&aksi=hapus_komentar'> Hapus </a>";
                       }
                     ?>
                   </p>
@@ -145,7 +151,7 @@ include 'view/sidenav.php';
                       <input class="file-path validate" type="text">
                     </div>
                   </div>
-                  <input class="btn" type="submit" name="submit" value="Kirim Komentar">
+                  <input class="btn" type="submit" name="submit" value="Komentar">
                 </div>
               </div>
             </form>

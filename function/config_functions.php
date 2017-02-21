@@ -8,11 +8,17 @@ define("GIT", "http://github.com/ajikamaludin");
 define("FB", "http://facebook.com/ajikamaludin19");
 define("PATH","getprakerin");
 define("ACCESS_FROM",'http://'.$_SERVER['SERVER_NAME'].'/'.PATH);
+define("SERVER",'http://'.$_SERVER['SERVER_NAME']);
 
 
 //Konsta Google Capcha
-define("SECRET_KEY","6Ldo9fkSAAAAAEmeYapWRYsjGicHUQ46mYys7TAf");
-define("DATA_SITE_KEY","6Ldo9fkSAAAAAG32L-gdfjN7zDpzaShdtEcpTthh");
+if(SERVER == 'localhost'){
+	define("SECRET_KEY","6Ldo9fkSAAAAAEmeYapWRYsjGicHUQ46mYys7TAf");
+	define("DATA_SITE_KEY","6Ldo9fkSAAAAAG32L-gdfjN7zDpzaShdtEcpTthh");
+}elseif(SERVER == '172.20.253.252'){
+	define("SECRET_KEY","6LePVRYUAAAAAHbfUgw-PelqBK5KTPHH-aw5BU7h");
+	define("DATA_SITE_KEY","6LePVRYUAAAAAEqkT6fNUUHyF9qzxovDhru004E6");
+}
 
 //Konsta MySQL/MariaDB Information
 define('HOST_URL', "localhost");

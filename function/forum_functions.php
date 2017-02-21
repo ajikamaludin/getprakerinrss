@@ -5,9 +5,16 @@ function tampil_hits_issue(){
 	return $result;
 }
 
+function total_masalah(){
+	$sql = "SELECT id_forum FROM forum";
+	$result = result($sql);
+	$jumlah = mysqli_num_rows($result);
+	return $jumlah;
+}
 
-function tampil_forum(){
-	$sql = "SELECT id_forum,id_pengguna,judul_issue,isi_issue,gambar_issue,waktu_issue,status_issue	FROM forum  ORDER BY `forum`.`waktu_issue` DESC LIMIT 10 ";
+
+function tampil_forum($mulai,$perlaman){
+	$sql = "SELECT id_forum,id_pengguna,judul_issue,isi_issue,gambar_issue,waktu_issue,status_issue	FROM forum  ORDER BY `forum`.`waktu_issue` DESC LIMIT $mulai,$perlaman";
 	$result = result($sql);
 	return $result;
 }
@@ -99,7 +106,7 @@ function komentar_issue($id_forum,$email,$komentar,$gambar){
 }
 
 function tampil_komentar_by($id){
-	$sql = "SELECT forum_komentar.id_komentar,forum_komentar.id_pengguna,forum_komentar.isi_komentar,forum_komentar.gambar_komentar,forum_komentar.waktu_komentar,pengguna.foto_profile,pengguna.email FROM forum_komentar JOIN pengguna ON pengguna.id_pengguna=forum_komentar.id_pengguna WHERE id_forum='$id'";
+	$sql = "SELECT forum_komentar.id_komentar,forum_komentar.id_pengguna,forum_komentar.isi_komentar,forum_komentar.gambar_komentar,forum_komentar.waktu_komentar,pengguna.foto_profile,pengguna.email FROM forum_komentar JOIN pengguna ON pengguna.id_pengguna=forum_komentar.id_pengguna WHERE id_forum='$id' ORDER BY `forum_komentar`.`waktu_komentar` DESC";
 	$result = result($sql);
 	return $result;
 }
@@ -157,4 +164,14 @@ function ubah_issue($email,$judul,$isi,$gambar){
 	}
 
 }
+
+function hapus_komentar($id){
+	$sql = "DELETE FROM forum_komentar WHERE id_komentar = '$id'";
+	if(run($sql)){
+		return run($sql);
+	}else{
+		return false;
+	}
+}
+
 ?>

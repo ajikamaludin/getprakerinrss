@@ -1,9 +1,15 @@
 <?php
 include 'view/header.php';
 session_cek();
-$forum = tampil_forum();
+$perlaman = 10;
+$laman = isset($_GET['halaman']) ? (int)$_GET['halaman'] : 1;
+$mulai = ($laman > 1) ? ($laman * $perlaman) - $perlaman : 0;
+$total = total_masalah();
+
+$forum = tampil_forum($mulai,$perlaman);
 $hitsue = tampil_hits_issue();
 
+$lamans = ceil($total/$perlaman);
 
 $cari_ok = false;
 if(isset($_POST['cari'])){
