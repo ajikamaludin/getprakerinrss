@@ -7,7 +7,7 @@ $pesan = '';
 if(isset($_GET['id'])){
   $id = $_GET['id'];
   $tampil_forum_by = tampil_forum_by($id);
-  $tampil_komentar_by = tampil_komentar_by($id);
+  $tampil_komentar_by = tampil_komentar_by($id,25);
   if($tampil_forum_by['email'] == $_SESSION['user']){
     if(isset($_GET['aksi'])){
       $aksi = $_GET['aksi'];

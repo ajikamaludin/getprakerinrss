@@ -105,8 +105,9 @@ function komentar_issue($id_forum,$email,$komentar,$gambar){
 	}
 }
 
-function tampil_komentar_by($id){
-	$sql = "SELECT forum_komentar.id_komentar,forum_komentar.id_pengguna,forum_komentar.isi_komentar,forum_komentar.gambar_komentar,forum_komentar.waktu_komentar,pengguna.foto_profile,pengguna.email FROM forum_komentar JOIN pengguna ON pengguna.id_pengguna=forum_komentar.id_pengguna WHERE id_forum='$id' ORDER BY `forum_komentar`.`waktu_komentar` DESC";
+function tampil_komentar_by($id,$limit){
+	$sql = "SELECT forum_komentar.id_komentar,forum_komentar.id_pengguna,forum_komentar.isi_komentar,forum_komentar.gambar_komentar,forum_komentar.waktu_komentar,pengguna.foto_profile,pengguna.email FROM forum_komentar JOIN pengguna ON pengguna.id_pengguna=forum_komentar.id_pengguna WHERE id_forum='$id' LIMIT $limit ORDER BY `forum_komentar`.`waktu_komentar` DESC";
+	die(print_r($sql));
 	$result = result($sql);
 	return $result;
 }

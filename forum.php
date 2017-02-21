@@ -31,7 +31,7 @@ include 'view/sidenav.php';
       <div class="col m8">
         <h4>Forum</h4>
           <blockquote>
-            <p>Bagikan Masalah Anda Di Sini</p>
+            <p>Bagikan Masalah Anda Di Sini,Total (<?= $total ?>)</p>
           </blockquote>
         </div>
         <div class="col m4">
@@ -116,6 +116,22 @@ include 'view/sidenav.php';
           <?php } ?>
           </table>
 
+            <ul class="pagination">
+              <li class="waves-effect"><a href="?halaman=1"><i class="material-icons">chevron_left</i></a></li>
+              <?php 
+              for($i=1;$i<=$lamans;$i++) {
+                if($i == $laman){
+                  $actived = "active";
+                }else{
+                  $actived = "";
+                }
+              ?>
+              <li class="<?= $actived ?>"><a href="?halaman=<?= $i ?>"><?= $i ?></a></li>
+              <?php } ?>
+
+              <li class="waves-effect"><a href="?halaman=<?= $i ?>"><i class="material-icons">chevron_right</i></a></li>
+            
+            </ul>
 
           <div class="fixed-action-btn horizontal">
             <a class="btn-floating btn-large red">
