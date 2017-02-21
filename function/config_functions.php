@@ -8,8 +8,7 @@ define("GIT", "http://github.com/ajikamaludin");
 define("FB", "http://facebook.com/ajikamaludin19");
 define("PATH","getprakerin");
 define("ACCESS_FROM",'http://'.$_SERVER['SERVER_NAME'].'/'.PATH);
-define("SERVER",'http://'.$_SERVER['SERVER_NAME']);
-
+define("SERVER",$_SERVER['SERVER_NAME']);
 
 //Konsta Google Capcha
 if(SERVER == 'localhost'){
