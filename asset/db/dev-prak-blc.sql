@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 18, 2017 at 10:50 PM
+-- Generation Time: Feb 21, 2017 at 08:29 AM
 -- Server version: 10.0.29-MariaDB-0ubuntu0.16.04.1
 -- PHP Version: 7.0.13-0ubuntu0.16.04.1
 
@@ -468,10 +468,7 @@ CREATE TABLE `forum` (
 --
 
 INSERT INTO `forum` (`id_forum`, `id_pengguna`, `judul_issue`, `isi_issue`, `gambar_issue`, `waktu_issue`, `status_issue`) VALUES
-(1, 1, 'Wifi Tidak Muncul Setelah Mengistall Linux Mint 17.3', '<p>Wifi saya tidak mau muncul setelah mengistall linux mint 17 padahal saya sudah mencoba sebaik mungkin dan sebisa saya namun yang terjadi adalah wifi saya tidak mau muncul padahal waktu installasi wifi bisa muncul dan sudah saya konekan ke internet setelah install selesai</p>\r\n', 'NULL', '2017-02-18 20:36:24', 'issue'),
-(2, 1, 'Wifi Tidak Muncul Setelah Mengistall Linux Mint 17.3 Bagian 2', '<p>Wifi saya tidak mau muncul setelah mengistall linux mint 17 padahal saya sudah mencoba sebaik mungkin dan sebisa saya namun yang terjadi adalah wifi saya tidak mau muncul padahal waktu installasi wifi bisa muncul dan sudah saya konekan ke internet setelah install selesai</p>\r\n', 'NULL', '2017-02-18 20:44:05', 'issue'),
-(3, 1, 'Setelah Install LAMP Server , PHP Tidak mau jalan', '<p>Setelah saya menginstall lamp server ternyata lampnya tidak mau jalan kenapa ya saya sudah coba browsing googleing dan aneka macam lain sebagainya say bingun dan konfiusing Setelah saya menginstall lamp server ternyata lampnya tidak mau jalan kenapa ya saya sudah coba browsing googleing dan aneka macam lain sebagainya say bingun dan konfiusing Setelah saya menginstall lamp server ternyata lampnya tidak mau jalan kenapa ya saya sudah coba browsing googleing dan aneka macam lain sebagainya say bingun dan konfiusing Setelah saya menginstall lamp server ternyata lampnya tidak mau jalan kenapa ya saya sudah coba browsing googleing dan aneka macam lain sebagainya say bingun dan konfiusing Setelah saya menginstall lamp server ternyata lampnya tidak mau jalan kenapa ya saya sudah coba browsing googleing dan aneka macam lain sebagainya say bingun dan konfiusing Setelah saya menginstall lamp server ternyata lampnya tidak mau jalan kenapa ya saya sudah coba browsing googleing dan aneka macam lain sebagainya say bingun dan konfiusing Setelah saya menginstall lamp server ternyata lampnya tidak mau jalan kenapa ya saya sudah coba browsing googleing dan aneka macam lain sebagainya say bingun dan konfiusing Setelah saya menginstall lamp server ternyata lampnya tidak mau jalan kenapa ya saya sudah coba browsing googleing dan aneka macam lain sebagainya say bingun dan konfiusing Setelah saya menginstall lamp server ternyata lampnya tidak mau jalan kenapa ya saya sudah coba browsing googleing dan aneka macam lain sebagainya say bingun dan konfiusing Setelah saya menginstall lamp server ternyata lampnya tidak mau jalan kenapa ya saya sudah coba browsing googleing dan aneka macam lain sebagainya say bingun dan konfiusing</p>\r\n', 'NULL', '2017-02-18 20:45:48', 'issue'),
-(4, 2, 'Saya Sedang Berusaha Untuk Membuat Aplikasi POS tapi Error', '<p>Jadi Begini teman2 hari ini saya berusaha untuk membuat aplikasi pos tapi error di bagian transaksi terimakasih untuk yang mau mebantuJadi Begini teman2 hari ini saya berusaha untuk membuat aplikasi pos tapi error di bagian transaksi terimakasih untuk yang mau mebantuJadi Begini teman2 hari ini saya berusaha untuk membuat aplikasi pos tapi error di bagian transaksi terimakasih untuk yang mau mebantuJadi Begini teman2 hari ini saya berusaha untuk membuat aplikasi pos tapi error di bagian transaksi terimakasih untuk yang mau mebantuJadi Begini teman2 hari ini saya berusaha untuk membuat aplikasi pos tapi error di bagian transaksi terimakasih untuk yang mau mebantuJadi Begini teman2 hari ini saya berusaha untuk membuat aplikasi pos tapi error di bagian transaksi terimakasih untuk yang mau mebantuJadi Begini teman2 hari ini saya berusaha untuk membuat aplikasi pos tapi error di bagian transaksi terimakasih untuk yang mau mebantuJadi Begini teman2 hari ini saya berusaha untuk membuat aplikasi pos tapi error di bagian transaksi terimakasih untuk yang mau mebantuJadi Begini teman2 hari ini saya berusaha untuk membuat aplikasi pos tapi error di bagian transaksi terimakasih untuk yang mau mebantu</p>\r\n', 'NULL', '2017-02-18 21:07:40', 'issue');
+(1, 1, 'Setelah Install LAMP Server , PHP Tidak mau jalan', '<p>Setelah saya menginstall lamp server ternyata lampnya tidak mau jalan kenapa ya saya sudah coba browsing googleing dan aneka macam lain sebagainya say bingun dan konfiusing Setelah saya menginstall lamp server ternyata lampnya tidak mau jalan kenapa ya saya sudah coba browsing googleing dan aneka macam lain sebagainya say bingun dan konfiusing Setelah saya menginstall lamp server ternyata lampnya tidak mau jalan kenapa ya saya sudah coba browsing googleing dan aneka macam lain sebagainya say bingun dan konfiusing Setelah saya menginstall lamp server ternyata lampnya tidak mau jalan kenapa ya saya sudah coba browsing googleing dan aneka macam lain sebagainya say bingun dan konfiusing Setelah saya menginstall lamp server ternyata lampnya tidak mau jalan kenapa ya saya sudah coba browsing googleing dan aneka macam lain sebagainya say bingun dan konfiusing Setelah saya menginstall lamp server ternyata lampnya tidak mau jalan kenapa ya saya sudah coba browsing googleing dan aneka macam lain sebagainya say bingun dan konfiusing Setelah saya menginstall lamp server ternyata lampnya tidak mau jalan kenapa ya saya sudah coba browsing googleing dan aneka macam lain sebagainya say bingun dan konfiusing Setelah saya menginstall lamp server ternyata lampnya tidak mau jalan kenapa ya saya sudah coba browsing googleing dan aneka macam lain sebagainya say bingun dan konfiusing Setelah saya menginstall lamp server ternyata lampnya tidak mau jalan kenapa ya saya sudah coba browsing googleing dan aneka macam lain sebagainya say bingun dan konfiusing Setelah saya menginstall lamp server ternyata lampnya tidak mau jalan kenapa ya saya sudah coba browsing googleing dan aneka macam lain sebagainya say bingun dan konfiusing</p>\r\n', 'NULL', '2017-02-19 11:03:28', 'issue');
 
 -- --------------------------------------------------------
 
@@ -487,6 +484,14 @@ CREATE TABLE `forum_komentar` (
   `gambar_komentar` varchar(255) NOT NULL,
   `waktu_komentar` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `forum_komentar`
+--
+
+INSERT INTO `forum_komentar` (`id_komentar`, `id_forum`, `id_pengguna`, `isi_komentar`, `gambar_komentar`, `waktu_komentar`) VALUES
+(1, 1, 2, '<p>aku berkomentar</p>\r\n', 'NULL', '2017-02-19 11:03:52'),
+(2, 1, 1, '<p>aku juga ber komentar</p>\r\n', 'NULL', '2017-02-19 11:04:11');
 
 -- --------------------------------------------------------
 
@@ -536,7 +541,7 @@ CREATE TABLE `pengguna` (
 
 INSERT INTO `pengguna` (`id_pengguna`, `nama`, `email`, `password`, `id_sekolah`, `nisn`, `alamat`, `kota_lahir`, `tgl_lahir`, `masa_prakerin`, `tgl_masuk`, `tgl_keluar`, `jurusan`, `url_blog`, `link_fb`, `no_hp`, `status`, `foto_profile`) VALUES
 (1, 'Aji Kamaludin', 'aji19kamaludin@gmail.com', '7815696ecbf1c96e6894b779456d330e', 2, '9966335542', 'Disini Alamat', 'Klaten', '1997-01-01', '1', '2011-01-01', '2017-03-25', 'TKJ', 'ajikamaludin.blogspot.co.id', 'fb.me/ajikamaludin', '083083083083', 'aktiv', 'ajikamalud_1487154740_aji19kamaludin@gmail.com.jpeg'),
-(2, 'Fadila Junita', 'fadila@gmail.com', '7815696ecbf1c96e6894b779456d330e', 1, '9090990923', 'Jl.Di Sini', 'Solo', '1990-01-01', '7', '2017-01-01', '2018-01-01', 'RPL', 'http://fadilajunitan.blogspot.co.id/', 'fb.me/linktome', '+62083084074554', 'aktiv', 'empty-profile.png'),
+(2, 'Fadila Junita', 'fadila@gmail.com', '7815696ecbf1c96e6894b779456d330e', 1, '9090990923', 'Jl.Di Sini', 'Solo', '1990-01-01', '7', '2017-01-01', '2018-01-01', 'RPL', 'http://fadilajunitan.blogspot.co.id/', 'fb.me/linktome', '+62083084074554', 'aktiv', '15732_1487440724_fadila@gmail.com.jpeg'),
 (3, 'Alvin Adit', 'alvin@gmail.com', '7815696ecbf1c96e6894b779456d330e', 1, '007', 'Jl.Sini', 'Klaten', '1989-01-01', '1', '2011-01-01', '2019-01-01', 'MM', 'https://alvin-blctelkom.blogspot.co.id', 'fb.me/linktoyou', '+62083084074554', 'aktiv', 'empty-profile.png');
 
 -- --------------------------------------------------------
@@ -651,12 +656,12 @@ ALTER TABLE `app_log`
 -- AUTO_INCREMENT for table `forum`
 --
 ALTER TABLE `forum`
-  MODIFY `id_forum` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_forum` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `forum_komentar`
 --
 ALTER TABLE `forum_komentar`
-  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `forum_notifikasi`
 --
