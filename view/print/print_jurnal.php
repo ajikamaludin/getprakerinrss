@@ -19,7 +19,7 @@ $posts = tampil_post_by_asc($email,'500');
   <div class="container">
   <div class="row">
   <div class="col-md-1"></div>
-  <div class="col-md-10">
+  <div class="col-md-5">
   <h3>Jurnal Prakerin</h3>
 	<table class="table table-bordered">
 		<tr>
@@ -46,13 +46,7 @@ $posts = tampil_post_by_asc($email,'500');
         ?>
 	</table>
 	</div>
-	<div class="col-md-1"></div>
-	</div>
-	<div class="row">
-	<?php foreach ($posts as $blog) {?>
-		<center><?= $blog['judul_post'] ?></center>
-		<p style="text-indent: 30px;" > <?= $blog['konten_post'] ?> </p>
-	<?php } ?>
+	<div class="col-md-6"></div>
 	</div>
 	</div>
   </body>
