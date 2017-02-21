@@ -121,4 +121,40 @@ function hapus_issue($id){
 	}
 }
 
+function ubah_issue($email,$judul,$isi,$gambar){
+
+	$id = getid_pengguna($email);
+	$judul = cek_string($judul);
+	$isi = cek_string($isi);
+	
+	$gambar_nama = $gambar['name'];
+	$gambar_ukuran = $gambar['size'];
+	$gambar_format = $gambar['type'];
+	$gambar_simpan = $gambar['tmp_name'];
+	$gambar_error = $gambar['error'];
+	$gambar_nama = substr($gambar_nama, 0,5).str_replace("image/", ".", $gambar_format);
+	$lokasi_simpan_gambar = "asset/img/forum/".$gambar_nama;
+
+	if($gambar_error == 0 && ($gambar_ukuran >= 0 || $gambar_ukuran < 2000000) ){
+		if($gambar_format == 'image/jpeg' || $gambar_format == 'image/jpg' || $gambar_format == 'image/png' ){
+			if(file_exists($lokasi_simpan_gambar)){
+				$gambar_nama = cek_foto($gambar_nama,$gambar_format,$email);
+				$lokasi_simpan_gambar = "asset/img/forum/".$gambar_nama;
+				move_uploaded_file($gambar_simpan, $lokasi_simpan_gambar);
+				$sql = "UPDATE `forum` SET `judul_issue` = '$judul', `isi_issue` = '$isi', `gambar_issue` = '$gambar_nama' WHERE id_pengguna = '$id'";
+				return run($sql);
+			}else{
+				move_uploaded_file($gambar_simpan, $lokasi_simpan_gambar);
+				$sql = "UPDATE `forum` SET `judul_issue` = '$judul', `isi_issue` = '$isi', `gambar_issue` = '$gambar_nama' WHERE id_pengguna = '$id'";
+				return run($sql);
+			}
+		}else{
+			return false;
+		}			
+	}else{
+			$sql = "UPDATE `forum` SET `judul_issue` = '$judul',`isi_issue` = '$isi' WHERE id_pengguna = '$id'";
+			return run($sql);
+	}
+
+}
 ?>

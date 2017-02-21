@@ -6,7 +6,7 @@ define("DEVELOPER_TEAM", "IT BLC-Telkom Team");
 define("AUTHOR", "Aji Kamaludin");
 define("GIT", "http://github.com/ajikamaludin");
 define("FB", "http://facebook.com/ajikamaludin19");
-define("PATH","dev/getprakerinrss");
+define("PATH","getprakerin");
 define("ACCESS_FROM",'http://'.$_SERVER['SERVER_NAME'].'/'.PATH);
 
 

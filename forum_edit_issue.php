@@ -17,8 +17,7 @@ if(isset($_POST['submit'])){
   $gambar_issue = $_FILES['gambar_issue'];
   $email = $_SESSION['user'];
   if(!empty($judul_issue) && !empty($isi_issue) ){
-      //$ubah = ubah_issue($email,$judul_issue,$isi_issue,$gambar_issue);
-      $ubah = true;
+      $ubah = ubah_issue($email,$judul_issue,$isi_issue,$gambar_issue);
       if($ubah){
         header('Location: forum_detail.php?id='.$id.'');
       }else{
