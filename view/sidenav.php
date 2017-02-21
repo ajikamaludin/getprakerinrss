@@ -1,5 +1,6 @@
 <?php
 $foto = tampil_foto();
+$unread_notif = total_notif_unread($_SESSION['user']);
 ?>
       <div class="col s12 m4 l3"> 
             <ul id="slide-out" class="side-nav fixed">
@@ -16,7 +17,7 @@ $foto = tampil_foto();
             <li><a class="waves-effect" href="<?= ACCESS_FROM ?>/profile.php">Profile</a></li>
             <li><a class="waves-effect" href="<?= ACCESS_FROM ?>/sekolahku.php">Sekolah & Pembimbing</a></li>
             <li><a class="waves-effect" href="<?= ACCESS_FROM ?>/laporan.php">Laporan</a></li>
-            <li><a class="waves-effect" href="<?= ACCESS_FROM ?>/forum.php">Forum<span class="badge">4 Pemberitahuan</span></a></li>
+            <li><a class="waves-effect" href="<?= ACCESS_FROM ?>/forum.php">Forum<span class="badge"><?= $unread_notif ?> Pemberitahuan</span></a></li>
             <li><a class="waves-effect" href="<?= ACCESS_FROM ?>/logout.php">Keluar</a></li>
             </ul>
       </div>

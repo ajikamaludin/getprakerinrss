@@ -14,6 +14,8 @@ if(isset($_GET['id'])){
   $total = total_komentar($id);
   $lamans = ceil($total/$perlaman);
   $tampil_komentar_by = tampil_komentar_by($id,$mulai,$perlaman);
+
+
   if($tampil_forum_by['email'] == $_SESSION['user']){
     if(isset($_GET['aksi'])){
       $aksi = $_GET['aksi'];
@@ -32,6 +34,9 @@ if(isset($_GET['id'])){
         }else{
           $pesan = 'gagal hapus komentar';
         }
+      }elseif($aksi == 'mark_notif'){
+        $id_notif = $_GET['id_no'];
+        baca_notif_id($id_notif);
       }else{
         $pesan = 'jangan coba coba';
       }

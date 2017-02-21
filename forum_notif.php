@@ -1,6 +1,29 @@
 <?php
 include 'view/header.php';
 session_cek();
+$u_email = $_SESSION['user'];
+$notifs = tampilkan_notif($u_email);
+
+if(isset($_GET['q'])){
+  $aksi = $_GET['q'].'_notif';
+  if($aksi == "hapus_notif"){
+    $p = hapus_notif($u_email);
+    if($p){
+      header('Location: forum_notif.php?q=');
+    }else{
+      die();
+    }
+  }elseif($aksi == "baca_notif"){
+    $p = baca_notif($u_email);
+    if($p){
+      header('Location: forum_notif.php?q=');
+    }else{
+      die();
+    }
+  }
+
+}
+
 ?>
     <div class="row">
 
@@ -15,17 +38,22 @@ include 'view/sidenav.php';
       </div>
       <div class="row"></div>
         <div class="row">
-          <h5>Pemberitahuan</h5>
+          <h5><?= $unread_notif ?> Pemberitahuan</h5>
           <hr>
-          <button class="btn waves-effect waves-light" type="submit" name="action">Telah dibaca Semua
-          </button>
-          <button class="btn waves-effect waves-light" type="submit" name="action">Hapus Pemberitahuan
+          <a href="forum_notif.php?q=baca" >Tandai Telah dibaca Semua </a> | 
+          <a href="forum_notif.php?q=hapus">Hapus Semua Pemberitahuan</a>
           </button>
           <div class="collection">
-            <a href="#!" class="collection-item active">Alvin</a>
-            <a href="#!" class="collection-item">Alvin</a>
-            <a href="#!" class="collection-item">Alvin</a>
-            <a href="#!" class="collection-item">Alvin</a>
+          <!-- <a href="#!" class="collection-item active">Alvin</a> -->
+          <?php foreach($notifs as $notif) {
+                if($notif['status_notif'] == 'dibaca'){
+                  $status = 'active';
+                }else{
+                  $status ='';
+                }
+          ?>
+            <a href="<?=$notif['url_notif'].'&aksi=mark_notif&id_no='.$notif['id_notifikasi']?>" class="collection-item <?= $status ?> "><?= $notif['isi_notif']."<br> Pada:".$notif['waktu_notif']; ?></a>
+          <?php } ?>
           </div>
 
           <div class="fixed-action-btn horizontal">

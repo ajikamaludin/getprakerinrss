@@ -18,7 +18,6 @@ if(isset($_POST['cari'])){
   $cari = tampil_hasil_cari($cari);
 }
 
-
 ?>
     <div class="row">
 

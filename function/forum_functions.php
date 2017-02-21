@@ -93,7 +93,13 @@ function komentar_issue($id_forum,$email,$komentar,$gambar){
 		}			
 	}else{
 			$sql = "INSERT INTO `forum_komentar` (`id_forum`, `id_pengguna`, `isi_komentar`, `gambar_komentar`) VALUES ('$id_forum', '$id_pengguna', '$komentar', 'NULL');";
-			return run($sql);
+			$notif = kirim_notifikasi($id_forum,$id_pengguna);
+			if($notif){
+				return run($sql);	
+			}else{
+				return false;
+			}
+			
 	}
 }
 
@@ -179,4 +185,75 @@ function total_komentar($id){
 	$jumlah = mysqli_num_rows($result);
 	return $jumlah;
 }
+
+function kirim_notifikasi($id_forum,$id_pengguna){
+	$notif_ke_id = getid_pengguna_forum($id_forum);
+	$judul_issue = get_judul_issue($id_forum);
+	$pelaku = format_pengguna($id_pengguna);
+
+	if($notif_ke_id == $id_pengguna){
+		return true;
+	}else{
+		$url = ACCESS_FROM."/forum_detail.php?id=".$id_forum;
+
+		$isi_notif = $pelaku." Mengomentari Issue Anda Tentang \"$judul_issue\" ";
+
+		$sql = "INSERT INTO `forum_notifikasi` (`id_pengguna`, `isi_notif`, `url_notif`, `status_notif`) VALUES ('$notif_ke_id', '$isi_notif', '$url', 'belum_dibaca')";
+		$result = run($sql);
+		return $result;
+	}
+}
+
+function getid_pengguna_forum($id_forum){
+	$sql = "SELECT id_pengguna FROM forum WHERE id_forum = '$id_forum'";
+	$result = result($sql);
+	$data = mysqli_fetch_assoc($result);
+	$id = $data['id_pengguna'];
+	return $id;
+}
+
+function get_judul_issue($id_forum){
+	$sql = "SELECT judul_issue FROM forum WHERE id_forum = '$id_forum'";
+	$result = result($sql);
+	$data = mysqli_fetch_assoc($result);
+	$judul = $data['judul_issue'];
+	return $judul;
+}
+
+function tampilkan_notif($email){
+	$id = getid_pengguna($email);
+
+	$sql = "SELECT id_notifikasi,isi_notif,url_notif,status_notif,waktu_notif FROM forum_notifikasi WHERE id_pengguna='$id' ";
+	$result = result($sql);
+	return $result;
+}
+
+function total_notif_unread($email){
+	$id = getid_pengguna($email);
+	$sql = "SELECT id_notifikasi FROM forum_notifikasi WHERE id_pengguna='$id' AND status_notif='belum_dibaca' ";
+	$result = result($sql);
+	$total = mysqli_num_rows($result);
+	return $total;
+}
+function baca_notif($email){
+	$id = getid_pengguna($email);
+	$sql = "UPDATE `forum_notifikasi` SET `status_notif`= 'dibaca' WHERE id_pengguna='$id'";
+	$result = run($sql);
+	return $result;
+}
+
+function hapus_notif($email){
+	$id = getid_pengguna($email);
+	$sql = "DELETE FROM `forum_notifikasi` WHERE `forum_notifikasi`.`id_pengguna` = '$id' ";
+	$result = run($sql);
+	return $result;
+}
+
+function baca_notif_id($id_notif){
+	$id = $id_notif;
+	$sql = "UPDATE `forum_notifikasi` SET `status_notif`= 'dibaca' WHERE id_notifikasi='$id'";
+	$result = run($sql);
+	return $result;
+}
+
 ?>
