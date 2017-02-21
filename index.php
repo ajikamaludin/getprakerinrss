@@ -1,6 +1,7 @@
 <?php
 include 'view/header.php';
 session_cek();
+$total_post = total_post($_SESSION['user']);
 $posts = tampil_post_by($_SESSION['user'],'7');
 
 if(isset($_POST['sync'])){
@@ -27,7 +28,7 @@ include 'view/sidenav.php';
 ?>
     <!--main content-->
       <div class="col s12 m8 l9">
-        <h4 style="margin-bottom: 30px;">Kehadiran dan Kegiatan Prakerin</h4>
+        <h4 style="margin-bottom: 30px;">Kehadiran dan Kegiatan Prakerin(<?=$total_post?>)</h4>
         <div style="display: none;" id="loader">
             <div class="preloader-wrapper big active">
               <div class="spinner-layer spinner-blue">
@@ -103,7 +104,7 @@ include 'view/sidenav.php';
           <form method="post">
             <input type="submit" name="more" class="waves-effect waves-light btn" value="Tampilkan Semua" />
             <input type="submit" name="print_jurnal_pdf" class="waves-effect waves-light btn" value="Download PDF">
-            <input type="submit" name="print_jurnal_odt" class="waves-effect waves-light btn" value="Download ODT" disabled id="disabled" />
+            <!-- <input type="submit" name="print_jurnal_odt" class="waves-effect waves-light btn" value="Download ODT" disabled id="disabled" /> -->
             <input id="rsync" class="waves-effect waves-light btn" type="submit" name="sync" value="Re-Sync Post" />
             <input class="waves-effect waves-light btn" type="submit" name="dropall" value="Delete All Post" />
           </form>

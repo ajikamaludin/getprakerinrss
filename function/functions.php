@@ -173,4 +173,12 @@ function hapus_post_by($id_pengguna,$id_post){
     return $result;
 }
 
+function total_post($email){
+    $id = getid_pengguna($email);
+    $sql = "SELECT id_pengguna FROM all_blog WHERE id_pengguna = '$id'";
+    $result = result($sql);
+    $jumlah = mysqli_num_rows($result);
+    return $jumlah;
+}
+
 ?>

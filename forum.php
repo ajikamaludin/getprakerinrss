@@ -6,7 +6,7 @@ $laman = isset($_GET['halaman']) ? (int)$_GET['halaman'] : 1;
 $mulai = ($laman > 1) ? ($laman * $perlaman) - $perlaman : 0;
 $total = total_masalah();
 
-$forum = tampil_forum($mulai,$perlaman);
+$forum = tampil_forum($mulai,$perlaman); 
 $hitsue = tampil_hits_issue();
 
 $lamans = ceil($total/$perlaman);

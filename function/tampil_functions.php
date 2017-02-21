@@ -7,14 +7,13 @@ function pilih_sekolah(){
 }
 
 function tampil_post_by($email,$lim){
-    $sql = "SELECT all_blog.judul_post,all_blog.tgl_post,all_blog.id_my_blog,all_blog.url_post,all_blog.id_pengguna,pengguna.nama FROM `all_blog`,`pengguna` WHERE pengguna.email='$email' AND pengguna.id_pengguna=all_blog.id_pengguna ORDER BY `all_blog`.`tgl_post` DESC
- LIMIT $lim";
+    $sql = "SELECT all_blog.judul_post,all_blog.tgl_post,all_blog.id_my_blog,all_blog.url_post,all_blog.id_pengguna,pengguna.nama FROM `all_blog`,`pengguna` WHERE pengguna.email='$email' AND pengguna.id_pengguna=all_blog.id_pengguna ORDER BY `all_blog`.`tgl_post` DESC LIMIT $lim";
     $result = result($sql);
     return $result;
 }
 
 function tampil_post_by_asc($email,$lim){
-    $sql = "SELECT all_blog.judul_post,all_blog.tgl_post,all_blog.id_my_blog,all_blog.url_post,all_blog.id_pengguna,pengguna.nama FROM `all_blog`,`pengguna` WHERE pengguna.email='$email' AND pengguna.id_pengguna=all_blog.id_pengguna ORDER BY `all_blog`.`tgl_post` ASC
+    $sql = "SELECT all_blog.judul_post,all_blog.konten_post,all_blog.tgl_post,all_blog.id_my_blog,all_blog.url_post,all_blog.id_pengguna,pengguna.nama FROM `all_blog`,`pengguna` WHERE pengguna.email='$email' AND pengguna.id_pengguna=all_blog.id_pengguna ORDER BY `all_blog`.`tgl_post` ASC
  LIMIT $lim";
     $result = result($sql);
     return $result;

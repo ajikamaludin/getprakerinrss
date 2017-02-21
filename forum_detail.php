@@ -7,7 +7,13 @@ $pesan = '';
 if(isset($_GET['id'])){
   $id = $_GET['id'];
   $tampil_forum_by = tampil_forum_by($id);
-  $tampil_komentar_by = tampil_komentar_by($id,25);
+  //Pagination
+  $perlaman = 10;
+  $laman = isset($_GET['halaman']) ? (int)$_GET['halaman'] : 1;
+  $mulai = ($laman > 1) ? ($laman * $perlaman) - $perlaman : 0;
+  $total = total_komentar($id);
+  $lamans = ceil($total/$perlaman);
+  $tampil_komentar_by = tampil_komentar_by($id,$mulai,$perlaman);
   if($tampil_forum_by['email'] == $_SESSION['user']){
     if(isset($_GET['aksi'])){
       $aksi = $_GET['aksi'];
@@ -24,7 +30,7 @@ if(isset($_GET['id'])){
         if($result){
           header('Location: forum_detail.php?id='.$id);
         }else{
-          $pesan = 'gagal hapus issue';
+          $pesan = 'gagal hapus komentar';
         }
       }else{
         $pesan = 'jangan coba coba';
@@ -34,6 +40,7 @@ if(isset($_GET['id'])){
 }else{
   $id = 'NULL' ;
 }
+
 
 //Komentar Baru
 if(isset($_POST['submit'])){
@@ -136,7 +143,26 @@ include 'view/sidenav.php';
           </tr>
           <?php } ?>
           </table>
+          <div class="row">
+            <div class="col s3 offset-s9" >
+            <ul class="pagination">
+              <li class="waves-effect"><a href="?id=<?=$id?>&halaman=1"><i class="material-icons">chevron_left</i></a></li>
+              <?php 
+              for($i=1;$i<=$lamans;$i++) {
+                if($i == $laman){
+                  $actived = "active";
+                }else{
+                  $actived = "";
+                }
+              ?>
+              <li class="<?= $actived ?>"><a href="?id=<?=$id?>&halaman=<?= $i ?>"><?= $i ?></a></li>
+              <?php } ?>
 
+              <li class="waves-effect"><a href="?id=<?=$id?>&halaman=<?= $i ?>"><i class="material-icons">chevron_right</i></a></li>
+            
+            </ul>
+            </div>
+          </div>
           <div class="row">
             <form class="col s11 offset-s1" method="post" action="" enctype="multipart/form-data">
               <div class="row">
