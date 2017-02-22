@@ -52,7 +52,7 @@ include 'view/sidenav.php';
                   $status ='';
                 }
           ?>
-            <a href="<?=$notif['url_notif'].'&aksi=mark_notif&id_no='.$notif['id_notifikasi']?>" class="collection-item <?= $status ?> "><?= $notif['isi_notif']."<br> Pada:".$notif['waktu_notif']; ?></a>
+            <a href="<?=$notif['url_notif'].'&aksi=mark_notif&id_no='.$notif['id_notifikasi']?>" class="collection-item <?= $status ?> "><?= $notif['isi_notif']."<br> Pada: ".$notif['waktu_notif']; ?></a>
           <?php } ?>
           </div>
 

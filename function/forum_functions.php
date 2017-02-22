@@ -223,7 +223,7 @@ function get_judul_issue($id_forum){
 function tampilkan_notif($email){
 	$id = getid_pengguna($email);
 
-	$sql = "SELECT id_notifikasi,isi_notif,url_notif,status_notif,waktu_notif FROM forum_notifikasi WHERE id_pengguna='$id' ";
+	$sql = "SELECT id_notifikasi,isi_notif,url_notif,status_notif,waktu_notif FROM forum_notifikasi WHERE id_pengguna='$id' ORDER BY `forum_notifikasi`.`waktu_notif` DESC";
 	$result = result($sql);
 	return $result;
 }
