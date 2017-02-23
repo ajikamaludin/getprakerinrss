@@ -14,9 +14,6 @@ define("SERVER",$_SERVER['SERVER_NAME']);
 if(SERVER == 'localhost'){
 	define("SECRET_KEY","6Ldo9fkSAAAAAEmeYapWRYsjGicHUQ46mYys7TAf");
 	define("DATA_SITE_KEY","6Ldo9fkSAAAAAG32L-gdfjN7zDpzaShdtEcpTthh");
-}elseif(SERVER == '172.20.253.252'){
-	define("SECRET_KEY","6LePVRYUAAAAAHbfUgw-PelqBK5KTPHH-aw5BU7h");
-	define("DATA_SITE_KEY","6LePVRYUAAAAAEqkT6fNUUHyF9qzxovDhru004E6");
 }elseif(SERVER == '192.168.234.252'){
 	define("SECRET_KEY","6LdiVBYUAAAAAHvl-ZaMysSpKm46t9LKJ7tMFSlK");
 	define("DATA_SITE_KEY","6LePVRYUAAAAAHbfUgw-PelqBK5KTPHH-aw5BU7h");
