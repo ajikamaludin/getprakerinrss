@@ -16,7 +16,7 @@ if(SERVER == 'localhost'){
 	define("DATA_SITE_KEY","6Ldo9fkSAAAAAG32L-gdfjN7zDpzaShdtEcpTthh");
 }elseif(SERVER == '192.168.234.252'){
 	define("SECRET_KEY","6LdiVBYUAAAAAHvl-ZaMysSpKm46t9LKJ7tMFSlK");
-	define("DATA_SITE_KEY","6LePVRYUAAAAAHbfUgw-PelqBK5KTPHH-aw5BU7h");
+	define("DATA_SITE_KEY","6LdiVBYUAAAAAJniP8bBEedgt_ntpZ6bMXoLq3i2");
 }
 
 //Konsta MySQL/MariaDB Information
