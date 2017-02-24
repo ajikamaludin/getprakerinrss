@@ -135,7 +135,17 @@ function update_data_pembimbing($email,$nama_pembimbing,$no_pembimbing){
 function update_data_laporan($email,$katapengantar){
     $id = getid_pengguna(cek_string($email));
     $katapengantar = cek_string($katapengantar);
-    $sql = "UPDATE `all_laporan` SET `kata_pengantar` = '$katapengantar' WHERE `all_laporan`.`id_laporan` ='$id' ";
+    $sql = "SELECT id_laporan FROM all_laporan WHERE id_pengguna= '$id'";
+    $result = result($sql);
+    $hasil = mysqli_num_rows($result);
+    if($hasil == '1'){
+        $sql = "UPDATE `all_laporan` SET `kata_pengantar` = '$katapengantar' WHERE `all_laporan`.`id_pengguna` ='$id' ";
+    }elseif($hasil == '0'){
+        $sql = "INSERT INTO `all_laporan` (`id_pengguna`, `kata_pengantar`) VALUES ('$id', '$katapengantar')";
+    }else{
+        return false;
+        die();
+    }
     $result = run($sql);
     return $result;
 }
